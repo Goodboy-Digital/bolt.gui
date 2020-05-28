@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+
 import styled from 'styled-components';
 
 export interface ColumnLayoutProps {
@@ -41,20 +42,20 @@ export const ColumnLayout: FunctionComponent<ColumnLayoutProps> = (props: Column
     let rightColWidth = props.label ? '70%' : '100%';
 
     if (props.rightColumnWidth) {
-        rightColWidth = props.rightColumnWidth;        
+        rightColWidth = props.rightColumnWidth;
     }
 
     return (
-        <Container>   
+        <Container>
             {
-                props.label && 
+                props.label &&
                 <Column width={leftColWidth}>
                     <LabelText>{props.label}</LabelText>
                 </Column>
             }
             <Column width={rightColWidth}>
                 {
-                    // @ts-ignore: prop type missing 
+                    // @ts-ignore: prop type missing
                     props.children
                 }
             </Column>

@@ -1,5 +1,5 @@
+import { ColumnLayout, ComponentPair, RowLayout } from '../inputs/layouts';
 import React, { FunctionComponent } from 'react';
-import { ColumnLayout, ComponentPair, RowLayout } from './inputs/layouts';
 
 import styled from 'styled-components';
 
@@ -17,7 +17,7 @@ export interface TabData {
     /** optional background colour for tab button */
     tabColour?: string;
     /** components to be displayed under tab */
-    elements: ElementData[];    
+    elements: ElementData[];
 }
 
 export interface ElementData {
@@ -44,10 +44,10 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
     width: ${(props: ContainerProps): string => (props.panelWidth ? props.panelWidth : '400px')};
     transition: width 0.25s, height 0.25s;
-    background-color: #252C39; 
+    background-color: #252C39;
     border-radius: 0px 5px 5px 0px;
     overflow-y: scroll;
-    ::-webkit-scrollbar {display:none;} 
+    ::-webkit-scrollbar {display:none;}
 `
 
 const Header = styled.div`
@@ -82,9 +82,9 @@ export const ContentPanel: FunctionComponent<ContentPanelProps> = (props: Conten
 {
     const data = props.tabData;
     return (
-        <Container 
+        <Container
             panelWidth={props.panelWidth}
-        >   
+        >
             <Header>
                 <TitleText>{data.title.toUpperCase()}</TitleText>
             </Header>
@@ -93,7 +93,7 @@ export const ContentPanel: FunctionComponent<ContentPanelProps> = (props: Conten
                     data.elements.map((element) => {
                     return (
                         <ComponentWrapper>
-                            <ColumnLayout 
+                            <ColumnLayout
                                 label={element.label}
                                 labelColour={element.labelColour}
                                 labelFontSize={element.labelColour}
@@ -108,4 +108,3 @@ export const ContentPanel: FunctionComponent<ContentPanelProps> = (props: Conten
         </Container>
     );
 }
-    

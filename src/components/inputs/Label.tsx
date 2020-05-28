@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+
 import styled from 'styled-components';
 
 export interface LabelProps {
@@ -10,15 +11,15 @@ export interface LabelProps {
 }
 
 const Container = styled.div`
-color: ${(props: LabelProps): string => (props.inputData.labelColour ? props.inputData.labelColour : 'white')};
-font-family: Roboto;
-opacity: 0.8;
-font-size: ${(props: LabelProps): string => (props.inputData.labelFontSize ? props.inputData.labelFontSize : '16px')};
+    color: ${(props: LabelProps): string => (props.inputData.labelColour ? props.inputData.labelColour : 'white')};
+    font-family: Roboto;
+    opacity: 0.8;
+    font-size: ${(props: LabelProps): string => (props.inputData.labelFontSize ? props.inputData.labelFontSize : '16px')};
 `
 
 export const Label: FunctionComponent<LabelProps> = (props: LabelProps) =>
 (
-    <Container inputData={props.inputData}>   
+    <Container inputData={props.inputData}>
         {props.inputData.label}
     </Container>
 );

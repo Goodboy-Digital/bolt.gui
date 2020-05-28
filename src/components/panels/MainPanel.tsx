@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import goodboyLogo from '../assets/goodboy-logo.png';
-import styled from 'styled-components';
-import { TabButtonComponent } from './TabButtonComponent';
 import { ContentPanel, TabData } from './ContentPanel';
+import React, { FunctionComponent } from 'react';
+
+import { TabButtonComponent } from './TabButtonComponent';
+import goodboyLogo from '../../assets/goodboy-logo.png';
+import styled from 'styled-components';
 
 export interface MainPanelProps
 {
@@ -11,7 +12,7 @@ export interface MainPanelProps
     /** container width, defaults to 'auto' */
     defaultContainerWidth?: string;
     /** Custom tab button height, defaults to '100px' */
-    tabButtonHeight?: string; 
+    tabButtonHeight?: string;
     /** Custom tab button width, defaults to '100px' */
     tabButtonWidth?: string;
     /** toggles expansion of content */
@@ -38,7 +39,7 @@ interface ContainerProps
     width: string;
 }
 
-interface TabColumnProps 
+interface TabColumnProps
 {
     showScroll: boolean;
     width?: string;
@@ -73,7 +74,7 @@ const ItemsContainer = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    ::-webkit-scrollbar {display:none;}  
+    ::-webkit-scrollbar {display:none;}
 `
 
 export const MainPanel: FunctionComponent<MainPanelProps> = (props: MainPanelProps) =>
@@ -81,14 +82,14 @@ export const MainPanel: FunctionComponent<MainPanelProps> = (props: MainPanelPro
         <Container
             height={props.defaultContainerHeight ? props.defaultContainerHeight : '400px'}
             width={props.defaultContainerWidth ? props.defaultContainerWidth : 'auto'}
-            expandedX={props.expandedX} 
-            expandedY={props.expandedY} 
+            expandedX={props.expandedX}
+            expandedY={props.expandedY}
         >
             <TabColumn showScroll={props.expandedY} width={props.tabButtonWidth}>
-                <TabButtonComponent 
-                    id={'Bolt'} 
-                    imgSrc={goodboyLogo} 
-                    imgAlt={'Bolt GUI'} 
+                <TabButtonComponent
+                    id={'Bolt'}
+                    imgSrc={goodboyLogo}
+                    imgAlt={'Bolt GUI'}
                     clickCallback={() => props.expandYCallBack()}
                     tabButtonHeight={props.tabButtonHeight}
                     tabButtonWidth={props.tabButtonWidth}
@@ -104,8 +105,8 @@ export const MainPanel: FunctionComponent<MainPanelProps> = (props: MainPanelPro
                                 tabColour={tab.tabColour}
                                 tabButtonHeight={props.tabButtonHeight}
                                 tabButtonWidth={props.tabButtonWidth}
-                                imgSrc={tab.tabImg} 
-                                imgAlt={tab.imgAlt} 
+                                imgSrc={tab.tabImg}
+                                imgAlt={tab.imgAlt}
                                 clickCallback={() => props.setActiveTabCallBack(index)}
                                 active={index === props.activeTabIndex}
                             />
@@ -114,7 +115,7 @@ export const MainPanel: FunctionComponent<MainPanelProps> = (props: MainPanelPro
                 }
                 </ItemsContainer>
             </TabColumn>
-            <ContentPanel 
+            <ContentPanel
                 panelWidth={props.expandedY ? props.panelWidth : '0'}
                 tabData={props.tabData[props.activeTabIndex]}
             ></ContentPanel>

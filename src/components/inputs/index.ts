@@ -1,3 +1,3 @@
 export * from './Label';
-export * from './TextInputComponent';
-export * from './ButtonInputComponent';
+export * from './textbox/TextInputComponent';
+export * from './button/ButtonInputComponent';
