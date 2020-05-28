@@ -1,0 +1,6 @@
+temp
+docs
+dist
+build
+node_modules
+**/*.d.ts
