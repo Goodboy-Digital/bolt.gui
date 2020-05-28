@@ -1,8 +1,8 @@
-import { Label, TextInputComponent, ButtonInputComponent } from './inputs';
+import { ButtonInputComponent, Label, TextInputComponent } from './inputs';
 import React, { Component } from 'react';
 
-import { MainPanel } from './MainPanel';
-import { TabData } from './ContentPanel';
+import { MainPanel } from './panels/MainPanel';
+import { TabData } from './panels/ContentPanel';
 import goodboyLogo from '../assets/goodboy-logo.png';
 import { render } from 'react-dom';
 
@@ -32,7 +32,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         };
 
         const logInputChange = (value:any) => console.log(value);
-        
+
         this.tabs.push({
             title: 'Example',
             id: 'E',
@@ -40,7 +40,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
             elements: [
                 {
                     columns: [
-                        { 
+                        {
                             components: [
                                 { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui' }},
                             ]
@@ -50,16 +50,16 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: 'Button example',
                     columns: [
-                        { 
+                        {
                             components: [
-                                { 
-                                    component: ButtonInputComponent, inputData: { 
-                                    imgSrc: goodboyLogo, 
-                                    imgAlt: 'test', 
-                                    inputBackgroundColour: 'red', 
-                                    disabled: true, 
-                                    buttonText: 'Clicky', 
-                                    callOnClick: () => { console.log('ive been clicked')} 
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    imgSrc: goodboyLogo,
+                                    imgAlt: 'test',
+                                    inputBackgroundColour: 'red',
+                                    disabled: true,
+                                    buttonText: 'Clicky',
+                                    callOnClick: () => { console.log('ive been clicked')}
                                 }}
                             ]
                         },
@@ -68,30 +68,30 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: 'Two buttons',
                     columns: [
-                        { 
+                        {
                             components: [
-                                { 
-                                    component: ButtonInputComponent, inputData: { 
-                                    buttonText: 'Option 1', 
-                                    callOnClick: () => { console.log('ive been clicked')}, 
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    buttonText: 'Option 1',
+                                    callOnClick: () => { console.log('ive been clicked')},
                                     inputWidth: '98%'
                                 }}
                             ]
                         },
-                        { 
+                        {
                             components: [
-                                { 
-                                    component: ButtonInputComponent, inputData: { 
-                                    buttonText: 'Option 2', 
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    buttonText: 'Option 2',
                                     callOnClick: () => { console.log('ive been clicked')},
-                                    inputWidth: '98%' 
+                                    inputWidth: '98%'
                                 }}
                             ]
                         },
                     ]
                 },
-                
-            ],    
+
+            ],
         })
         this.tabs.push({
             title: 'Level Data',
@@ -101,12 +101,12 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: '2D Position',
                     columns: [
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'x', inputWidth: '95%' }}
                             ]
                         },
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'y', inputWidth: '95%' }}
                             ]
@@ -116,17 +116,17 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: '3D Position',
                     columns: [
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'x', inputWidth: '92%' }}
                             ]
                         },
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'y', inputWidth: '92%' }}
                             ]
                         },
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'z', inputWidth: '92%' }}
                             ]
@@ -136,13 +136,13 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: 'Cursor colour',
                     columns: [
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'r', inputWidth: '95%' }},
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'b', inputWidth: '95%' }}
                             ]
                         },
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'g', inputWidth: '95%' }},
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'a', inputWidth: '95%' }}
@@ -150,7 +150,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                         },
                     ]
                 }
-            ],  
+            ],
         })
         this.tabs.push({
             title: 'SoundBoy Data',
@@ -159,22 +159,22 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: 'Multi-row',
                     columns: [
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }},
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }},
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }}
                             ]
                         },
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }}
                             ]
                         },
-                        { 
+                        {
                             components: [
                                 { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }},
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }}   
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }}
                             ]
                         },
                     ]
@@ -182,55 +182,55 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                 {
                     label: 'Use Bolt',
                     columns: [
-                        { 
+                        {
                             components: [
-                                { 
+                                {
                                     component: ButtonInputComponent, inputData: {
-                                    inputBackgroundColour: 'green', 
-                                    buttonText: 'yes', 
-                                    callOnClick: () => { console.log('ive been clicked')}, 
-                                    inputWidth: '95%',
-                                    inputHeight: '45px' 
-                                }}
-                            ]
-                        },
-                        { 
-                            components: [
-                                { 
-                                    component: ButtonInputComponent, inputData: { 
-                                    inputBackgroundColour: 'red', 
-                                    buttonText: 'No', 
+                                    inputBackgroundColour: 'green',
+                                    buttonText: 'yes',
                                     callOnClick: () => { console.log('ive been clicked')},
                                     inputWidth: '95%',
-                                    inputHeight: '45px'  
+                                    inputHeight: '45px'
                                 }}
                             ]
                         },
-                        { 
+                        {
                             components: [
-                                { 
-                                    component: ButtonInputComponent, inputData: { 
-                                    buttonText: 'Maybe?', 
-                                    callOnClick: () => { console.log('ive been clicked')}, 
-                                    inputWidth: '95%',
-                                    inputHeight: '45px' 
-                                }}
-                            ]
-                        },
-                        { 
-                            components: [
-                                { 
-                                    component: ButtonInputComponent, inputData: {  
-                                    buttonText: 'Repeat question', 
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    inputBackgroundColour: 'red',
+                                    buttonText: 'No',
                                     callOnClick: () => { console.log('ive been clicked')},
                                     inputWidth: '95%',
-                                    inputHeight: '45px' 
+                                    inputHeight: '45px'
+                                }}
+                            ]
+                        },
+                        {
+                            components: [
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    buttonText: 'Maybe?',
+                                    callOnClick: () => { console.log('ive been clicked')},
+                                    inputWidth: '95%',
+                                    inputHeight: '45px'
+                                }}
+                            ]
+                        },
+                        {
+                            components: [
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    buttonText: 'Repeat question',
+                                    callOnClick: () => { console.log('ive been clicked')},
+                                    inputWidth: '95%',
+                                    inputHeight: '45px'
                                 }}
                             ]
                         },
                     ]
                 },
-            ],  
+            ],
         })
     }
 
@@ -246,9 +246,9 @@ export class BoltGUI extends Component<BoltProps, BoltState>
     public render(): JSX.Element
     {
         return (
-            <MainPanel 
-                expandedX={this.state.expandedX} 
-                expandedY={this.state.expandedY} 
+            <MainPanel
+                expandedX={this.state.expandedX}
+                expandedY={this.state.expandedY}
                 expandYCallBack={this.toggleExpandedY.bind(this)}
                 setActiveTabCallBack={this.setActiveTab.bind(this)}
                 tabData={this.tabs}
@@ -266,7 +266,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
     {
         this.setState({ expandedY: !this.state.expandedY });
     }
-    
+
     public setActiveTab(newState: number): void
     {
         this.setState({ activeTab: newState});
