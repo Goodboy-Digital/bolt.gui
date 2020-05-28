@@ -44,31 +44,6 @@ const Container = styled.div`
     align-items: center;
 `
 
-const Button = styled.div<ButtonOptions>`
-    background-color: ${(props: ButtonOptions): string => (props.inputBackgroundColour ? props.inputBackgroundColour : 'white')};
-    font-family: Roboto;
-    padding: 0;
-    border-radius: 3px;
-    text-align: center;
-    color: ${(props: ButtonOptions): string => (props.buttonTextColour ? props.buttonTextColour : 'black')};
-    font-size: ${(props: ButtonOptions): string => (props.buttonFontSize ? props.buttonFontSize : '16px')};
-    opacity: 0.8;
-    height: ${(props: ButtonOptions): string => (props.inputHeight ? props.inputHeight : '20px')};
-    width: ${(props: ButtonOptions): string => (props.inputWidth ? props.inputWidth : '100%')};
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-        opacity: 0.9;
-    }
-
-    &:active {
-        opacity: 1;
-    }
-`
-
 const DisabledButton = styled.div<ButtonOptions>`
     background-color: ${(props: ButtonOptions): string => (props.inputBackgroundColour ? props.inputBackgroundColour : 'white')};
     font-family: Roboto;
@@ -84,6 +59,16 @@ const DisabledButton = styled.div<ButtonOptions>`
     display: flex;
     justify-content: center;
     align-items: center;
+`
+
+const Button = styled(DisabledButton)`
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        opacity: 1;
+    }
 `
 
 const Image = styled.img<ButtonOptions>`
