@@ -2,12 +2,12 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 export interface RowLayoutProps {
-    columns: {
+    rows: {
         components: ComponentPair[]
     }[];
 }
 
-interface RowContainerProps {
+interface ItemContainerProps {
     width: string;
 }
 
@@ -22,28 +22,34 @@ export interface BaseInputProps
 }
 
 const Container = styled.div`
-    width: 100%;
-    display: inline-flex;
-`
-
-const RowContainer = styled.div<RowContainerProps>`
-    width: ${(props: RowContainerProps): string => props.width};
+    width: 100%; 
     display: flex;
     flex-direction: column;
 `
 
-export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>{
-    const columnWidth = ((100 / props.columns.length) + '%');
-    
+const RowContainer = styled.div`
+    width: 100%
+`
+
+const ItemContainer = styled.div<ItemContainerProps>`
+    width: ${(props: ItemContainerProps): string => props.width};
+    display: inline-flex;
+    padding: 0;
+`
+
+export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>{    
     return (
         <Container>
             {
-                props.columns.map((column) => {
-                    return <RowContainer width={columnWidth}>
+                props.rows.map((row) => {
+                    const itemWidth = ((100 / row.components.length) + '%');
+                    return <RowContainer>
                         {
-                            column.components.map((pair) => {
+                            row.components.map((pair) => {
                                 return (
-                                    <pair.component inputData={pair.inputData}/>
+                                    <ItemContainer width={itemWidth}>
+                                        <pair.component inputData={pair.inputData}/>
+                                    </ItemContainer>
                                 );
                             })
                         }

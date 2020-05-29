@@ -24,7 +24,7 @@ export interface ElementData {
     label?: string,
     labelColour?: string,
     labelFont?: string,
-    columns: {
+    rows: {
         components: ComponentPair[]
     }[];
 }
@@ -98,7 +98,7 @@ export const ContentPanel: FunctionComponent<ContentPanelProps> = (props: Conten
                                 labelColour={element.labelColour}
                                 labelFontSize={element.labelColour}
                             >
-                                <RowLayout columns={element.columns}/>
+                                <RowLayout rows={element.rows}/>
                             </ColumnLayout>
                         </ComponentWrapper>
                     )

@@ -48,6 +48,7 @@ const DisabledButton = styled.div<ButtonOptions>`
     background-color: ${(props: ButtonOptions): string => (props.inputBackgroundColour ? props.inputBackgroundColour : 'white')};
     font-family: Roboto;
     padding: 0;
+    margin-bottom: 3px;
     border-radius: 3px;
     text-align: center;
     color: ${(props: ButtonOptions): string => (props.buttonTextColour ? props.buttonTextColour : 'black')};
