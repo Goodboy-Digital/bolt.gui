@@ -41,8 +41,8 @@ interface ChildProps
 }
 
 const Container = styled.div<ContainerProps>`
-    width: ${(props: ContainerProps): string => (props.width ? props.width : '100px')};
-    height: ${(props: ContainerProps): string => (props.height ? props.height : '100px')};
+    width: ${(props: ContainerProps): string => (props.width ? props.width : '48px')};
+    height: ${(props: ContainerProps): string => (props.height ? props.height : '48px')};
     padding: 0;
     background: ${(props: ContainerProps): string => (props.colour ? props.colour : '#3F51B5')};
     border-left: ${(props: ContainerProps): string => (props.active ? '3px solid white' : '0')};
@@ -50,7 +50,7 @@ const Container = styled.div<ContainerProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: ${(props: ContainerProps): string => (props.active ? '0px' : '5px')};
+    border-radius: ${(props: ContainerProps): string => (props.active ? '0px' : '2.5px')};
 
     &:hover {
         border-left: 3px solid white;
@@ -68,7 +68,7 @@ const Container = styled.div<ContainerProps>`
 
 const TabText = styled.h2<ChildProps>`
     font-family: Roboto;
-    font-size: 55px;
+    font-size: 28px;
     font-style: bold;
     color: ${(props: ChildProps): string => (props.colour ? props.colour : 'white')};
     opacity: ${(props: ChildProps): string => (props.active ? '1' : '0.7')};

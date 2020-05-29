@@ -48,9 +48,9 @@ interface TabColumnProps
 const Container = styled.div<ContainerProps>`
     position: fixed;
     left: 50px;
-    top: 100px;
-    width: ${(props: ContainerProps): string => (props.expandedX ? props.width : '100px')};
-    height: ${(props: ContainerProps): string => (props.expandedY ? props.height : '100px')};
+    top: 50px;
+    width: ${(props: ContainerProps): string => (props.expandedX ? props.width : '48px')};
+    height: ${(props: ContainerProps): string => (props.expandedY ? props.height : '48px')};
     transition: width 0.25s, height 0.25s;
     padding: 0;
     background: #3F51B5;
@@ -64,7 +64,7 @@ const TabColumn = styled.div<TabColumnProps>`
     border: 0;
     margin: 0;
     height: 100%;
-    width: ${(props: TabColumnProps): string => (props.width ? props.width : '100px')};
+    width: ${(props: TabColumnProps): string => (props.width ? props.width : '48px')};
     overflow: hidden;
 `
 
@@ -80,7 +80,7 @@ const ItemsContainer = styled.div`
 export const MainPanel: FunctionComponent<MainPanelProps> = (props: MainPanelProps) =>
     (
         <Container
-            height={props.defaultContainerHeight ? props.defaultContainerHeight : '400px'}
+            height={props.defaultContainerHeight ? props.defaultContainerHeight : '272px'}
             width={props.defaultContainerWidth ? props.defaultContainerWidth : 'auto'}
             expandedX={props.expandedX}
             expandedY={props.expandedY}

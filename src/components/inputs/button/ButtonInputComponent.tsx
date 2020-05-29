@@ -40,6 +40,7 @@ interface ButtonOptions {
 const Container = styled.div`
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `
@@ -48,13 +49,13 @@ const DisabledButton = styled.div<ButtonOptions>`
     background-color: ${(props: ButtonOptions): string => (props.inputBackgroundColour ? props.inputBackgroundColour : 'white')};
     font-family: Roboto;
     padding: 0;
-    margin-bottom: 3px;
+    margin: 2px 0;
     border-radius: 3px;
     text-align: center;
     color: ${(props: ButtonOptions): string => (props.buttonTextColour ? props.buttonTextColour : 'black')};
-    font-size: ${(props: ButtonOptions): string => (props.buttonFontSize ? props.buttonFontSize : '16px')};
+    font-size: ${(props: ButtonOptions): string => (props.buttonFontSize ? props.buttonFontSize : '11px')};
     opacity: 0.6;
-    height: ${(props: ButtonOptions): string => (props.inputHeight ? props.inputHeight : '20px')};
+    height: ${(props: ButtonOptions): string => (props.inputHeight ? props.inputHeight : '18px')};
     width: ${(props: ButtonOptions): string => (props.inputWidth ? props.inputWidth : '100%')};
     overflow: hidden;
     display: flex;
@@ -83,7 +84,7 @@ const LabelText = styled.p<LabelStyleOptions>`
     color: ${(props: LabelStyleOptions): string => (props.labelColour ? props.labelColour : 'white')};
     font-family: Roboto;
     opacity: 0.8;
-    font-size: ${(props: LabelStyleOptions): string => (props.labelFontSize ? props.labelFontSize : '16px')};
+    font-size: ${(props: LabelStyleOptions): string => (props.labelFontSize ? props.labelFontSize : '11px')};
     text-align: center;
 `
 

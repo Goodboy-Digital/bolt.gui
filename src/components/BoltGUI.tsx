@@ -1,4 +1,4 @@
-import { ButtonInputComponent, Label, TextInputComponent } from './inputs';
+import { ButtonInputComponent, Label, TextInputComponent, BlankInputComponent } from './inputs';
 import React, { Component } from 'react';
 
 import { MainPanel } from './panels/MainPanel';
@@ -42,7 +42,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                     rows: [
                         {
                             components: [
-                                { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui' }},
+                                { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
                             ]
                         },
                     ]
@@ -54,12 +54,9 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                             components: [
                                 {
                                     component: ButtonInputComponent, inputData: {
-                                    imgSrc: goodboyLogo,
-                                    imgAlt: 'test',
-                                    inputBackgroundColour: 'red',
-                                    disabled: true,
                                     buttonText: 'Clicky',
-                                    callOnClick: () => { console.log('ive been clicked')}
+                                    callOnClick: () => { console.log('ive been clicked')},
+                                    inputWidth: '98%'
                                 }}
                             ]
                         },
@@ -74,18 +71,54 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                     component: ButtonInputComponent, inputData: {
                                     buttonText: 'Option 1',
                                     callOnClick: () => { console.log('ive been clicked')},
-                                    inputWidth: '98%'
-                                }}
-                            ]
-                        },
-                        {
-                            components: [
+                                    inputWidth: '95%'
+                                }},
                                 {
                                     component: ButtonInputComponent, inputData: {
                                     buttonText: 'Option 2',
                                     callOnClick: () => { console.log('ive been clicked')},
-                                    inputWidth: '98%'
+                                    inputWidth: '95%'
                                 }}
+                            ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Text input',
+                    rows: [
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%', inputType: 'text' }},
+                            ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Number input',
+                    rows: [
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%', inputType: 'number' }},
+                            ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Password input',
+                    rows: [
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%', inputType: 'password' }},
+                            ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Text area',
+                    rows: [
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '96%', inputType: 'textarea' }},
                             ]
                         },
                     ]
@@ -95,8 +128,6 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         })
         this.tabs.push({
             title: 'Level Data',
-            // tabImg: goodboyLogo,
-            // imgAlt: 'hellooooo',
             elements: [
                 {
                     label: '2D Position',
@@ -122,18 +153,84 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                     ]
                 },
                 {
-                    label: 'Cursor colour',
                     rows: [
                         {
                             components: [
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'r', inputWidth: '95%' }},
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'g', inputWidth: '95%' }}
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'r', inputWidth: '90%' }},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'g', inputWidth: '90%' }},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'b', inputWidth: '90%' }},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'a', inputWidth: '90%' }}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    label: 'Login',
+                    rows: [
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'username', inputWidth: '92%' }},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'password', inputWidth: '92%', inputType: 'password' }}
                             ]
                         },
                         {
                             components: [
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'b', inputWidth: '95%' }},
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, label: 'a', inputWidth: '95%' }}
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    buttonText: 'Submit',
+                                    callOnClick: () => { console.log('callback fired for login process')},
+                                    inputWidth: '98%',
+                                }}
+                            ]
+                        }
+                    ]
+                }
+            ],
+        })
+        this.tabs.push({
+            title: 'Vanity Tab',
+            tabImg: goodboyLogo,
+            imgAlt: 'hellooooo',
+            elements: [
+                {
+                    label: 'Button example',
+                    rows: [
+                        {
+                            components: [
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    imgSrc: goodboyLogo,
+                                    imgAlt: 'test',
+                                    inputBackgroundColour: 'red',
+                                    buttonText: 'Clicky',
+                                    callOnClick: () => { console.log('ive been clicked')}
+                                }}
+                            ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Twin Button',
+                    rows: [
+                        {
+                            components: [
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    imgSrc: goodboyLogo,
+                                    imgAlt: 'test',
+                                    inputBackgroundColour: 'green',
+                                    buttonText: 'Clicky',
+                                    callOnClick: () => { console.log('ive been clicked')}
+                                }},
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    imgSrc: goodboyLogo,
+                                    imgAlt: 'test',
+                                    inputBackgroundColour: 'purple',
+                                    disabled: true,
+                                    buttonText: 'Clicky',
+                                    callOnClick: () => { console.log('ive been clicked')}
+                                }}
                             ]
                         },
                     ]
@@ -149,25 +246,43 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                     rows: [
                         {
                             components: [
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '98%' }}
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '98%'}}
                             ]
                         },
                         {
                             components: [
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '92%' }},
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '92%' }},
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '92%' }}
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '98%'}},
+                                { component: BlankInputComponent, inputData: {}}
                             ]
                         },
                         {
                             components: [
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '98%' }}
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '90%'}},
+                                { component: BlankInputComponent, inputData: {}},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '90%'}},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '90%'}}
                             ]
                         },
                         {
                             components: [
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }},
-                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%' }}
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '92%'}},
+                                {
+                                    component: ButtonInputComponent, inputData: {
+                                    buttonText: 'button',
+                                    callOnClick: () => { console.log('ive been clicked')},
+                                    inputHeight: '21px'
+                                }},
+                            ]
+                        },
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%'}},
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '95%'}},
+                            ]
+                        },
+                        {
+                            components: [
+                                { component: TextInputComponent, inputData: { callOnChange: logInputChange, inputWidth: '98%'}}
                             ]
                         },
                     ]
@@ -183,7 +298,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                     buttonText: 'yes',
                                     callOnClick: () => { console.log('ive been clicked')},
                                     inputWidth: '97%',
-                                    inputHeight: '45px'
+                                    inputHeight: '36px'
                                 }},
                                 {
                                     component: ButtonInputComponent, inputData: {
@@ -191,28 +306,17 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                     buttonText: 'No',
                                     callOnClick: () => { console.log('ive been clicked')},
                                     inputWidth: '97%',
-                                    inputHeight: '45px'
-                                }}                                
-                            ]
-                        },
-                        {
-                            components: [
+                                    inputHeight: '36px',
+                                }},
                                 {
                                     component: ButtonInputComponent, inputData: {
                                     buttonText: 'Maybe?',
                                     callOnClick: () => { console.log('ive been clicked')},
                                     inputWidth: '97%',
-                                    inputHeight: '45px'
-                                }},
-                                {
-                                    component: ButtonInputComponent, inputData: {
-                                    buttonText: 'Repeat question',
-                                    callOnClick: () => { console.log('ive been clicked')},
-                                    inputWidth: '97%',
-                                    inputHeight: '45px'
-                                }}                               
+                                    inputHeight: '36px'
+                                }}                            
                             ]
-                        },
+                        }
                     ]
                 },
             ],

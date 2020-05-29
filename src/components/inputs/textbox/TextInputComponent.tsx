@@ -45,19 +45,19 @@ const TextInput = styled.input<InputStyleOptions>`
     border-radius: 5px; 
     opacity: 0.92;
     color: ${(props: InputStyleOptions): string => (props.textColour ? props.textColour : 'black')};
-    font-size: ${(props: InputStyleOptions): string => (props.textSize ? props.textSize : '16px')};
+    font-size: ${(props: InputStyleOptions): string => (props.textSize ? props.textSize : '11px')};
     background-color: ${(props: InputStyleOptions): string => (props.backGroundColour ? props.backGroundColour : 'white')};
 `
 
 const TextArea = styled.textarea<InputStyleOptions>`
-    min-height: ${(props: InputStyleOptions): string => (props.height ? props.height : '20px')};
+    min-height: ${(props: InputStyleOptions): string => (props.height ? props.height : '18px')};
     width: ${(props: InputStyleOptions): string => (props.width ? props.width : '95%')};
     border-radius: 5px; 
     resize: vertical;
     overflow: auto;
     opacity: 0.92;
     color: ${(props: InputStyleOptions): string => (props.textColour ? props.textColour : 'black')};
-    font-size: ${(props: InputStyleOptions): string => (props.textSize ? props.textSize : '16px')};
+    font-size: ${(props: InputStyleOptions): string => (props.textSize ? props.textSize : '11px')};
     background-color: ${(props: InputStyleOptions): string => (props.backGroundColour ? props.backGroundColour : 'white')};
 `
 
@@ -67,7 +67,7 @@ const LabelText = styled.p<LabelStyleOptions>`
     color: ${(props: LabelStyleOptions): string => (props.labelColour ? props.labelColour : 'white')};
     font-family: Roboto;
     opacity: 0.8;
-    font-size: ${(props: LabelStyleOptions): string => (props.labelFontSize ? props.labelFontSize : '16px')};
+    font-size: ${(props: LabelStyleOptions): string => (props.labelFontSize ? props.labelFontSize : '11px')};
     text-align: center;
 `
 
