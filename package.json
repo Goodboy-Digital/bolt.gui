@@ -1,0 +1,71 @@
+{
+  "name": "bolt.gui",
+  "version": "0.0.0",
+  "description": "A highly flexible GUI for managing variables in JavaScript",
+  "keywords": [],
+  "homepage": "https://github.com/Goodboy-Digital/bolt.gui#readme",
+  "bugs": {
+    "url": "https://github.com/Goodboy-Digital/bolt.gui/issues"
+  },
+  "repository": {
+    "url": "https://github.com/Goodboy-Digital/bolt.gui"
+  },
+  "license": "MIT",
+  "author": "Sean Burns <sean@goodboydigital.com>",
+  "contributors": [
+    "Sean Mccumskay <seanmccumskay@goodboydigital.com>"
+  ],
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "types": "build/index.js",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rimraf \"{dist,lib,docs}\"",
+    "lint": "eslint --ext .tsx --ext .ts src --ignore-path .gitignore --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix",
+    "storybook": "start-storybook",
+    "test": "jest --coverage",
+    "preversion": "npm run clean && npm run lint",
+    "postversion": "npm run build"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "build/"
+    ]
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.1",
+    "@rollup/plugin-commonjs": "12.0.0",
+    "@rollup/plugin-image": "^2.0.5",
+    "@rollup/plugin-node-resolve": "8.0.0",
+    "@storybook/addon-a11y": "^5.3.18",
+    "@storybook/addon-docs": "^5.3.18",
+    "@storybook/addon-viewport": "^5.3.18",
+    "@storybook/react": "^5.3.18",
+    "@testing-library/jest-dom": "^5.7.0",
+    "@testing-library/react": "^10.0.4",
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "@types/styled-components": "^5.1.0",
+    "babel-loader": "^8.1.0",
+    "jest": "^26.0.1",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "rimraf": "3.0.2",
+    "rollup": "^2.11.2",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "ts-jest": "^25.5.1",
+    "ts-loader": "^7.0.3",
+    "typescript": "^3.8.3"
+  }
+}
