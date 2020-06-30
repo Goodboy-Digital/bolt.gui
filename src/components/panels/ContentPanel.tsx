@@ -42,9 +42,9 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-    width: ${(props: ContainerProps): string => (props.panelWidth ? props.panelWidth : '400px')};
+    width: ${(props: ContainerProps): string => (props.panelWidth ? props.panelWidth : '300px')};
     transition: width 0.25s, height 0.25s;
-    background-color: #252C39;
+    background-color: #343C47;
     border-radius: 0px 5px 5px 0px;
     overflow-y: scroll;
     ::-webkit-scrollbar {display:none;}
@@ -53,9 +53,9 @@ const Container = styled.div<ContainerProps>`
 const Header = styled.div`
     width: 100%;
     margin: 0;
-    padding: 5px 0 5px 10px;
+    padding: 2px 0 2px 10px;
     border-radius: 0px 5px 0 0;
-    background-color: #5C65BC;
+    background-color: #5C6BC0;
     display: flex;
 `
 
@@ -65,7 +65,7 @@ const TitleText = styled.h1`
     color: white;
     opacity: 0.8;
     font-family: Roboto;
-    font-size: 36px;
+    font-size: 20px;
 `
 
 const ElementContainer = styled.div`

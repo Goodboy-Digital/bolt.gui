@@ -31,10 +31,12 @@ const Column = styled.div<{width: string}>`
 `
 
 const LabelText = styled.p<LabelProps>`
+    margin: 0;
+    padding: 0;
     color: ${(props: LabelProps): string => (props.labelColour ? props.labelColour : 'white')};
     font-family: Roboto;
     opacity: 0.8;
-    font-size: ${(props: LabelProps): string => (props.labelFontSize ? props.labelFontSize : '16px')};
+    font-size: ${(props: LabelProps): string => (props.labelFontSize ? props.labelFontSize : '11px')};
 `
 
 export const ColumnLayout: FunctionComponent<ColumnLayoutProps> = (props: ColumnLayoutProps) => {

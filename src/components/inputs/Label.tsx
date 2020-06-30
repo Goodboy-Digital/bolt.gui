@@ -3,23 +3,32 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 export interface LabelProps {
-    inputData: {
-        label: string;
-        labelColour?: string;
-        labelFontSize?: string;
-    }
+    inputData: LabelOptions;
 }
 
-const Container = styled.div`
-    color: ${(props: LabelProps): string => (props.inputData.labelColour ? props.inputData.labelColour : 'white')};
+interface LabelOptions {
+    label?: string;
+    labelColour?: string;
+    labelFontSize?: string;
+    textAlign?: string;
+}
+
+const Container = styled.div<LabelOptions>`
+    width: 100%;
+    color: ${(props: LabelOptions): string => (props.labelColour ? props.labelColour : 'white')};
     font-family: Roboto;
     opacity: 0.8;
-    font-size: ${(props: LabelProps): string => (props.inputData.labelFontSize ? props.inputData.labelFontSize : '16px')};
+    font-size: ${(props: LabelOptions): string => (props.labelFontSize ? props.labelFontSize : '11px')};
+    text-align: ${(props: LabelOptions): string => (props.textAlign ? props.textAlign : 'left')};
 `
 
 export const Label: FunctionComponent<LabelProps> = (props: LabelProps) =>
 (
-    <Container inputData={props.inputData}>
+    <Container 
+        labelColour={props.inputData.labelColour}
+        labelFontSize={props.inputData.labelFontSize}
+        textAlign={props.inputData.textAlign}
+    >
         {props.inputData.label}
     </Container>
 );
