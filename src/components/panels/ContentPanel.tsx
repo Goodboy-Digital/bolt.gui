@@ -1,9 +1,10 @@
 import { ColumnLayout, ComponentPair, RowLayout } from '../inputs/layouts';
+import { Label } from '../inputs/Label'
 import React, { FunctionComponent } from 'react';
 
 import styled from 'styled-components';
 
-export interface TabData {
+export interface PanelData {
     /** title of tab */
     title: string;
     /** tab id, abbreviation to be displayed in side bar */
@@ -34,7 +35,7 @@ export interface ContentPanelProps
     /** panel width, defaults to '400px' */
     panelWidth?: string;
     /** Information to be rendered in content panel */
-    tabData: TabData;
+    panelData: PanelData;
 }
 
 interface ContainerProps {
@@ -80,7 +81,20 @@ const ComponentWrapper = styled.div`
 
 export const ContentPanel: FunctionComponent<ContentPanelProps> = (props: ContentPanelProps) =>
 {
-    const data = props.tabData;
+    const data = props.panelData || {
+        title: 'Default panel title',
+        elements: [
+            {
+                rows: [
+                    {
+                        components: [
+                            { component: Label, inputData: { label: 'Oh no - something exploded. Window missing panel data', textAlign: 'center' }},
+                        ]
+                    },
+                ]
+            },
+        ],
+    };
     return (
         <Container
             panelWidth={props.panelWidth}
@@ -90,9 +104,9 @@ export const ContentPanel: FunctionComponent<ContentPanelProps> = (props: Conten
             </Header>
             <ElementContainer>
                 {
-                    data.elements.map((element) => {
+                    data.elements.map((element, index) => {
                     return (
-                        <ComponentWrapper>
+                        <ComponentWrapper key={index}>
                             <ColumnLayout
                                 label={element.label}
                                 labelColour={element.labelColour}

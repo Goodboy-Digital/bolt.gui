@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 
-
 import styled from 'styled-components';
 
-export interface TabButtonComponentProps
+export interface PanelIconComponentProps
 {
     /** optional custom tab button height, defaults to '100px' */
     tabButtonHeight?: string;   
@@ -51,7 +50,6 @@ const Container = styled.div<ContainerProps>`
     align-items: center;
     justify-content: center;
     border-radius: ${(props: ContainerProps): string => (props.active ? '0px' : '2.5px')};
-
     &:hover {
         border-left: 3px solid white;
         border-radius: 0px;
@@ -79,7 +77,7 @@ const Logo = styled.img<ChildProps>`
     opacity: ${(props: ChildProps): string => (props.active ? '1' : '0.7')};
 `;
 
-export const TabButtonComponent: FunctionComponent<TabButtonComponentProps> = (props: TabButtonComponentProps) =>
+export const PanelIconComponent: FunctionComponent<PanelIconComponentProps> = (props: PanelIconComponentProps) =>
     (
         <Container 
             height={props.tabButtonHeight} 

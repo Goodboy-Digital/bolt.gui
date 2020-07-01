@@ -41,13 +41,13 @@ export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutPro
     return (
         <Container>
             {
-                props.rows.map((row) => {
+                props.rows.map((row, index) => {
                     const itemWidth = ((100 / row.components.length) + '%');
-                    return <RowContainer>
+                    return <RowContainer key={index}>
                         {
-                            row.components.map((pair) => {
+                            row.components.map((pair, rowIndex) => {
                                 return (
-                                    <ItemContainer width={itemWidth}>
+                                    <ItemContainer key={rowIndex} width={itemWidth}>
                                         <pair.component inputData={pair.inputData}/>
                                     </ItemContainer>
                                 );
@@ -57,7 +57,6 @@ export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutPro
                 })
             }
             </Container>
-    )
-        
+    );
 }
 
