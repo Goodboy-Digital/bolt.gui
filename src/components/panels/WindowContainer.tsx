@@ -2,6 +2,7 @@ import { ContentPanel, PanelData } from './ContentPanel';
 import React, { FunctionComponent } from 'react';
 
 import { PanelIconComponent } from './PanelIconComponent';
+import { XY } from '../../utils';
 import goodboyLogo from '../../assets/goodboy-logo.png';
 import styled from 'styled-components';
 
@@ -35,7 +36,7 @@ export interface WindowContainerData
 
 interface ContainerProps
 {
-    position?: { x: string , y: string };
+    position?: XY;
     expandedX: boolean;
     expandedY: boolean;
     height: string;
