@@ -20,6 +20,12 @@ export interface ComponentPair
     inputData: any;
 }
 
+interface ItemProps {
+    key: number;
+    width: string;
+    pair: ComponentPair;
+}
+
 export interface BaseInputProps
 {
     inputData: any;
@@ -41,6 +47,12 @@ const ItemContainer = styled.div<ItemContainerProps>`
     padding: 0;
 `;
 
+const Item: FunctionComponent<ItemProps> = (props: ItemProps) => (
+    <ItemContainer key={props.key} width={props.width}>
+        <props.pair.component inputData={props.pair.inputData}/>
+    </ItemContainer>
+)
+
 export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>
     (
         <Container>
@@ -53,9 +65,7 @@ export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutPro
                         {
                             row.components.map((pair, rowIndex) =>
                                 (
-                                    <ItemContainer key={rowIndex} width={itemWidth}>
-                                        <pair.component inputData={pair.inputData}/>
-                                    </ItemContainer>
+                                    <Item key={rowIndex} width={itemWidth} pair={pair}/>
                                 ))
                         }
                     </RowContainer>;
