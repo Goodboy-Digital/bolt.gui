@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { WindowContainer, WindowContainerData } from './panels/WindowContainer';
+
 import { render } from 'react-dom';
+import styled from 'styled-components';
 
 export interface BoltProps
 {
@@ -17,6 +18,7 @@ export interface BoltState
 }
 
 const BoltContainer = styled.div``;
+
 export class BoltGUI extends Component<BoltProps, BoltState>
 {
     private windows: WindowContainerData[] = [];
@@ -47,8 +49,8 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         return (
             <BoltContainer>
                 {
-                    this.windows.map((window, index) => {
-                        return (
+                    this.windows.map((window, index) =>
+                        (
                             <WindowContainer
                                 key={index}
                                 defaultContainerPosition={window.defaultContainerPosition}
@@ -61,13 +63,10 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                 panelData={window.panelData}
                                 activeTabIndex={this.state.activeTab}
                             />
-                        );
-                    })
+                        ))
                 }
             </BoltContainer>
-        ); 
-
-            
+        );
     }
 
     public toggleExpandedX(): void
@@ -82,7 +81,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
 
     public setActiveTab(newState: number): void
     {
-        this.setState({ activeTab: newState});
+        this.setState({ activeTab: newState });
     }
 
     // STATIC MEMBERS --------------------------------------------------

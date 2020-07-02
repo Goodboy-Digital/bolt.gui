@@ -1,4 +1,5 @@
-export interface XY {
+export interface XY
+{
     x: string;
     y: string;
 }

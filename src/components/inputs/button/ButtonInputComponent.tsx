@@ -2,7 +2,8 @@ import React, { FunctionComponent } from 'react';
 
 import styled from 'styled-components';
 
-export interface ButtonInputComponentProps {
+export interface ButtonInputComponentProps
+{
     inputData: {
         label?: string;
         labelColour?: string;
@@ -20,15 +21,17 @@ export interface ButtonInputComponentProps {
 
         disabled?: boolean;
         callOnClick?: (value: any) => any;
-    }
+    };
 }
 
-interface LabelStyleOptions {
+interface LabelStyleOptions
+{
     labelColour?: string;
     labelFontSize?: string;
 }
 
-interface ButtonOptions {
+interface ButtonOptions
+{
     imgSrc?: string;
     buttonTextColour?: string;
     buttonFontSize?: string;
@@ -43,11 +46,12 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-`
+`;
 
 const DisabledButton = styled.div<ButtonOptions>`
-    background-color: ${(props: ButtonOptions): string => (props.inputBackgroundColour ? props.inputBackgroundColour : 'white')};
-    font-family: Roboto;
+    background-color: ${(props: ButtonOptions): string =>
+        (props.inputBackgroundColour ? props.inputBackgroundColour : 'white')};
+    font-family: Roboto, sans-serif;
     padding: 0;
     margin: 2px 0;
     border-radius: 3px;
@@ -61,7 +65,7 @@ const DisabledButton = styled.div<ButtonOptions>`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 const Button = styled(DisabledButton)`
     &:hover {
@@ -71,27 +75,29 @@ const Button = styled(DisabledButton)`
     &:active {
         opacity: 1;
     }
-`
+`;
 
 const Image = styled.img<ButtonOptions>`
     height: 90%;
     border-radius: 3px;
-`
+`;
 
 const LabelText = styled.p<LabelStyleOptions>`
     margin: 0;
     padding: 0;
     color: ${(props: LabelStyleOptions): string => (props.labelColour ? props.labelColour : 'white')};
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     opacity: 0.8;
     font-size: ${(props: LabelStyleOptions): string => (props.labelFontSize ? props.labelFontSize : '11px')};
     text-align: center;
-`
+`;
 
-export const ButtonInputComponent: FunctionComponent<ButtonInputComponentProps> = (props: ButtonInputComponentProps) =>{
+export const ButtonInputComponent: FunctionComponent<ButtonInputComponentProps> = (props: ButtonInputComponentProps) =>
+{
     const data = props.inputData;
 
-    const onClick = data.callOnClick ? data.callOnClick : () => {};
+    const onClick = data.callOnClick ? data.callOnClick : () => { /**/ };
+
     return (
         <Container>
             {
@@ -102,28 +108,32 @@ export const ButtonInputComponent: FunctionComponent<ButtonInputComponentProps> 
                     {data.label}
                 </LabelText>
             }
-            {!data.disabled && <Button 
-                onClick={(e) => onClick(e) }            
-                buttonTextColour={data.buttonTextColour}
-                buttonFontSize={data.buttonFontSize}
-                inputHeight={data.inputHeight}
-                inputWidth={data.inputWidth}
-                inputBackgroundColour={data.inputBackgroundColour}
-            >
-                {!data.imgSrc && data.buttonText}
-                {data.imgSrc && <Image src={data.imgSrc} alt={data.imgAlt} />}
-            </Button>}             
-            {data.disabled && <DisabledButton            
-                buttonTextColour={data.buttonTextColour}
-                buttonFontSize={data.buttonFontSize}
-                inputHeight={data.inputHeight}
-                inputWidth={data.inputWidth}
-                inputBackgroundColour={data.inputBackgroundColour}
-            >
-                {!data.imgSrc && data.buttonText}
-                {data.imgSrc && <Image src={data.imgSrc} alt={data.imgAlt} />}
-            </DisabledButton>}             
+            {
+                !data.disabled && <Button
+                    onClick={(e) => onClick(e) }
+                    buttonTextColour={data.buttonTextColour}
+                    buttonFontSize={data.buttonFontSize}
+                    inputHeight={data.inputHeight}
+                    inputWidth={data.inputWidth}
+                    inputBackgroundColour={data.inputBackgroundColour}
+                >
+                    {!data.imgSrc && data.buttonText}
+                    {data.imgSrc && <Image src={data.imgSrc} alt={data.imgAlt} />}
+                </Button>
+            }
+            {
+                data.disabled && <DisabledButton
+                    buttonTextColour={data.buttonTextColour}
+                    buttonFontSize={data.buttonFontSize}
+                    inputHeight={data.inputHeight}
+                    inputWidth={data.inputWidth}
+                    inputBackgroundColour={data.inputBackgroundColour}
+                >
+                    {!data.imgSrc && data.buttonText}
+                    {data.imgSrc && <Image src={data.imgSrc} alt={data.imgAlt} />}
+                </DisabledButton>
+            }
         </Container>
     );
-}
+};
 

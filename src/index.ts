@@ -1,1 +1,1 @@
-export * from './components/BoltGUI'
+export * from './components/BoltGUI';
