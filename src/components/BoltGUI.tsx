@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
-import { WindowContainer, WindowContainerData } from './panels/WindowContainer';
-
+import React, { Component, FunctionComponent } from 'react';
+import { WindowContainerData } from './panels/WindowContainer';
 import { render } from 'react-dom';
 import styled from 'styled-components';
 
+export interface ViewData 
+{
+    component: FunctionComponent<WindowContainerData>;
+    props: WindowContainerData;
+}
 export interface BoltProps
 {
     stage?: any; // this will be the reference object for the game if needed
-    windowData?: WindowContainerData[];
+    viewData?: ViewData[];
 }
 
 export interface BoltState
@@ -21,7 +25,7 @@ const BoltContainer = styled.div``;
 
 export class BoltGUI extends Component<BoltProps, BoltState>
 {
-    private windows: WindowContainerData[] = [];
+    private views: ViewData[] = [];
 
     constructor(props: BoltProps)
     {
@@ -32,7 +36,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
             activeTab: 0,
         };
 
-        this.windows = props.windowData || [];
+        this.views = props.viewData || [];
     }
 
     // public componentWillMount()
@@ -49,21 +53,22 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         return (
             <BoltContainer>
                 {
-                    this.windows.map((window, index) =>
-                        (
-                            <WindowContainer
+                    this.views.map((view, index) => {
+                        return (
+                            <view.component
                                 key={index}
-                                defaultContainerPosition={window.defaultContainerPosition}
-                                defaultContainerHeight={window.defaultContainerHeight}
-                                defaultContainerWidth={window.defaultContainerWidth}
+                                defaultContainerPosition={view.props.defaultContainerPosition}
+                                defaultContainerHeight={view.props.defaultContainerHeight}
+                                defaultContainerWidth={view.props.defaultContainerWidth}
                                 expandedX={this.state.expandedX}
                                 expandedY={this.state.expandedY}
                                 expandYCallBack={this.toggleExpandedY.bind(this)}
                                 setActiveTabCallBack={this.setActiveTab.bind(this)}
-                                panelData={window.panelData}
+                                panelData={view.props.panelData}
                                 activeTabIndex={this.state.activeTab}
                             />
-                        ))
+                        )
+                    })
                 }
             </BoltContainer>
         );
