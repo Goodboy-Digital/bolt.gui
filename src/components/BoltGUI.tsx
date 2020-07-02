@@ -1,7 +1,7 @@
 import React, { Component, FunctionComponent } from 'react';
-import styled from 'styled-components';
 import { WindowContainerData } from './panels/WindowContainer';
 import { render } from 'react-dom';
+import styled from 'styled-components';
 
 export interface ViewData 
 {
@@ -22,6 +22,7 @@ export interface BoltState
 }
 
 const BoltContainer = styled.div``;
+
 export class BoltGUI extends Component<BoltProps, BoltState>
 {
     private views: ViewData[] = [];
@@ -66,13 +67,11 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                 panelData={view.props.panelData}
                                 activeTabIndex={this.state.activeTab}
                             />
-                        );
+                        )
                     })
                 }
             </BoltContainer>
-        ); 
-
-            
+        );
     }
 
     public toggleExpandedX(): void
@@ -87,7 +86,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
 
     public setActiveTab(newState: number): void
     {
-        this.setState({ activeTab: newState});
+        this.setState({ activeTab: newState });
     }
 
     // STATIC MEMBERS --------------------------------------------------

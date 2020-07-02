@@ -5,19 +5,19 @@ import styled from 'styled-components';
 export interface PanelIconComponentProps
 {
     /** optional custom tab button height, defaults to '100px' */
-    tabButtonHeight?: string;   
+    tabButtonHeight?: string;
     /** optional custom tab button width, defaults to '100px' */
     tabButtonWidth?: string;
     /** optional background colour of tab */
     tabColour?: string;
     /** callback function for tab click */
-    clickCallback: Function;
+    clickCallback: ()=> void;
     /** tab id */
     id: string;
     /** optional custom colour of tab id text, defaults to white */
     idColour?: string;
     /** optional image to replace tab id */
-    imgSrc?: string; 
+    imgSrc?: string;
     /** optional alt text for src img */
     imgAlt?: string;
     /** true if tab is currently active */
@@ -33,7 +33,7 @@ interface ContainerProps
     stick?: boolean;
 }
 
-interface ChildProps 
+interface ChildProps
 {
     colour?: string;
     active?: boolean;
@@ -54,23 +54,23 @@ const Container = styled.div<ContainerProps>`
         border-left: 3px solid white;
         border-radius: 0px;
     }
-    
+
     &:hover h2 {
         opacity: 1;
     }
-    
+
     &:hover img {
         opacity: 1;
     }
 `;
 
 const TabText = styled.h2<ChildProps>`
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     font-size: 28px;
     font-style: bold;
     color: ${(props: ChildProps): string => (props.colour ? props.colour : 'white')};
     opacity: ${(props: ChildProps): string => (props.active ? '1' : '0.7')};
-`
+`;
 
 const Logo = styled.img<ChildProps>`
     width: 80%;
@@ -79,26 +79,24 @@ const Logo = styled.img<ChildProps>`
 
 export const PanelIconComponent: FunctionComponent<PanelIconComponentProps> = (props: PanelIconComponentProps) =>
     (
-        <Container 
-            height={props.tabButtonHeight} 
-            width={props.tabButtonWidth} 
-            colour={props.tabColour} 
+        <Container
+            height={props.tabButtonHeight}
+            width={props.tabButtonWidth}
+            colour={props.tabColour}
             onClick={(): any => props.clickCallback()}
             active={props.active}
         >
             {
                 props.imgSrc
-                ?
-                    <Logo 
-                        src={props.imgSrc} 
-                        alt={props.imgAlt 
-                                ? props.imgAlt 
-                                : props.id
-                            }
+                    ? <Logo
+                        src={props.imgSrc}
+                        alt={props.imgAlt
+                            ? props.imgAlt
+                            : props.id
+                        }
                         active={props.active}
-                    /> 
-                : 
-                    <TabText 
+                    />
+                    : <TabText
                         colour={props.idColour}
                         active={props.active}
                     >
