@@ -1,19 +1,29 @@
 import React, { FunctionComponent } from 'react';
+
 import styled from 'styled-components';
 
-export interface RowLayoutProps {
+export interface RowLayoutProps
+{
     rows: {
-        components: ComponentPair[]
+        components: ComponentPair[];
     }[];
 }
 
-interface ItemContainerProps {
+interface ItemContainerProps
+{
     width: string;
 }
 
-export interface ComponentPair {
+export interface ComponentPair
+{
     component: FunctionComponent<BaseInputProps>;
     inputData: any;
+}
+
+interface ItemProps {
+    key: number;
+    width: string;
+    pair: ComponentPair;
 }
 
 export interface BaseInputProps
@@ -22,42 +32,45 @@ export interface BaseInputProps
 }
 
 const Container = styled.div`
-    width: 100%; 
+    width: 100%;
     display: flex;
     flex-direction: column;
-`
+`;
 
 const RowContainer = styled.div`
     width: 100%
-`
+`;
 
 const ItemContainer = styled.div<ItemContainerProps>`
     width: ${(props: ItemContainerProps): string => props.width};
     display: inline-flex;
     padding: 0;
-`
+`;
 
-export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>{    
-    return (
+const Item: FunctionComponent<ItemProps> = (props: ItemProps) => (
+    <ItemContainer key={props.key} width={props.width}>
+        <props.pair.component inputData={props.pair.inputData}/>
+    </ItemContainer>
+)
+
+export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>
+    (
         <Container>
             {
-                props.rows.map((row) => {
-                    const itemWidth = ((100 / row.components.length) + '%');
-                    return <RowContainer>
+                props.rows.map((row, index) =>
+                {
+                    const itemWidth = (`${100 / row.components.length}%`);
+
+                    return <RowContainer key={index}>
                         {
-                            row.components.map((pair) => {
-                                return (
-                                    <ItemContainer width={itemWidth}>
-                                        <pair.component inputData={pair.inputData}/>
-                                    </ItemContainer>
-                                );
-                            })
+                            row.components.map((pair, rowIndex) =>
+                                (
+                                    <Item key={rowIndex} width={itemWidth} pair={pair}/>
+                                ))
                         }
-                    </RowContainer>
+                    </RowContainer>;
                 })
             }
-            </Container>
-    )
-        
-}
+        </Container>
+    );
 

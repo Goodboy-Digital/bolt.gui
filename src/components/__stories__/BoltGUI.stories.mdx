@@ -1,6 +1,9 @@
-import {Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks'
+import {Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 
-import { BoltGUI, BoltProps } from '../BoltGUI'
+import { BoltGUI, BoltProps } from '../BoltGUI';
+import { WindowContainer } from '../panels/WindowContainer';
+import { ButtonInputComponent, Label, TextInputComponent, BlankInputComponent } from '../inputs';
+import goodboyLogo from '../../assets/goodboy-logo.png';
 
 <Meta title="Components/Bolt" component={BoltGUI} />
 
@@ -14,6 +17,329 @@ import { BoltGUI } from 'my-components'
 
 <Preview withSource="open">
   <Story name="Bolt GUI">
-    <BoltGUI />
+    <BoltGUI viewData={[
+    {
+        component: WindowContainer,
+        props: {
+            defaultContainerPosition: { x: '50px' , y: '50px' },
+            expandedX: true,
+            expandedY: true,
+            expandYCallBack: () => {},
+            setActiveTabCallBack: () => {},
+            panelData: [
+            {
+                title: 'Example',
+                id: 'E',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
+                                ]
+                            },
+                        ]
+                    }
+                ],
+            },
+            ],
+            activeTabIndex: 0
+        }
+      },
+    ]}
+></BoltGUI>
   </Story>
 </Preview>
+
+
+        <!-- {
+              title: 'Example',
+              id: 'E',
+              // idColour: 'red',
+              elements: [
+                  {
+                      rows: [
+                          {
+                              components: [
+                                  { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Button example',
+                      rows: [
+                          {
+                              components: [
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      buttonText: 'Clicky',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputWidth: '98%'
+                                  }}
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Two buttons',
+                      rows: [
+                          {
+                              components: [
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      buttonText: 'Option 1',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputWidth: '95%'
+                                  }},
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      buttonText: 'Option 2',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputWidth: '95%'
+                                  }}
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Text input',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '95%', inputType: 'text' }},
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Number input',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '95%', inputType: 'number' }},
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Password input',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '95%', inputType: 'password' }},
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Text area',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '96%', inputType: 'textarea' }},
+                              ]
+                          },
+                      ]
+                  },
+
+              ],
+          },
+
+          {
+              title: 'Level Data',
+              elements: [
+                  {
+                      label: '2D Position',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'x', inputWidth: '95%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'y', inputWidth: '95%' }}
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      label: '3D Position',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'x', inputWidth: '92%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'y', inputWidth: '92%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'z', inputWidth: '92%' }}
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'r', inputWidth: '90%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'g', inputWidth: '90%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'b', inputWidth: '90%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'a', inputWidth: '90%' }}
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      label: 'Login',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'username', inputWidth: '92%' }},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), label: 'password', inputWidth: '92%', inputType: 'password' }}
+                              ]
+                          },
+                          {
+                              components: [
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      buttonText: 'Submit',
+                                      callOnClick: () => { console.log('callback fired for login process')},
+                                      inputWidth: '98%',
+                                  }}
+                              ]
+                          }
+                      ]
+                  }
+              ],
+          },
+          
+          {
+              title: 'Vanity Tab',
+              tabImg: goodboyLogo,
+              imgAlt: 'hellooooo',
+              elements: [
+                  {
+                      label: 'Button example',
+                      rows: [
+                          {
+                              components: [
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      imgSrc: goodboyLogo,
+                                      imgAlt: 'test',
+                                      inputBackgroundColour: 'red',
+                                      buttonText: 'Clicky',
+                                      callOnClick: () => { console.log('ive been clicked')}
+                                  }}
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Twin Button',
+                      rows: [
+                          {
+                              components: [
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      imgSrc: goodboyLogo,
+                                      imgAlt: 'test',
+                                      inputBackgroundColour: 'green',
+                                      buttonText: 'Clicky',
+                                      callOnClick: () => { console.log('ive been clicked')}
+                                  }},
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      imgSrc: goodboyLogo,
+                                      imgAlt: 'test',
+                                      inputBackgroundColour: 'purple',
+                                      disabled: true,
+                                      buttonText: 'Clicky',
+                                      callOnClick: () => { console.log('ive been clicked')}
+                                  }}
+                              ]
+                          },
+                      ]
+                  }
+              ],
+          },
+
+          {
+              title: 'SoundBoy Data',
+              id: 'S',
+              elements: [
+                  {
+                      label: 'Multi-row',
+                      rows: [
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '98%'}}
+                              ]
+                          },
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '98%'}},
+                                  { component: BlankInputComponent, inputData: {}}
+                              ]
+                          },
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '90%'}},
+                                  { component: BlankInputComponent, inputData: {}},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '90%'}},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '90%'}}
+                              ]
+                          },
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '92%'}},
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      buttonText: 'button',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputHeight: '21px'
+                                  }},
+                              ]
+                          },
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '95%'}},
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '95%'}},
+                              ]
+                          },
+                          {
+                              components: [
+                                  { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '98%'}}
+                              ]
+                          },
+                      ]
+                  },
+                  {
+                      label: 'Use Bolt',
+                      rows: [
+                          {
+                              components: [
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      inputBackgroundColour: 'green',
+                                      buttonText: 'yes',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputWidth: '97%',
+                                      inputHeight: '36px'
+                                  }},
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      inputBackgroundColour: 'red',
+                                      buttonText: 'No',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputWidth: '97%',
+                                      inputHeight: '36px',
+                                  }},
+                                  {
+                                      component: ButtonInputComponent, inputData: {
+                                      buttonText: 'Maybe?',
+                                      callOnClick: () => { console.log('ive been clicked')},
+                                      inputWidth: '97%',
+                                      inputHeight: '36px'
+                                  }}                            
+                              ]
+                          }
+                      ]
+                  },
+              ],
+          } -->
