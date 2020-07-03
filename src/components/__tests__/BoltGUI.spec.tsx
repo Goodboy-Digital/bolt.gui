@@ -1,4 +1,4 @@
 test('Renders', async () =>
 {
-    expect(true);
+    expect(true).toBe(true);
 });

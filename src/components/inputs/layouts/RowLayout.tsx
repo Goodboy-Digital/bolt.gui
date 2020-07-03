@@ -20,7 +20,8 @@ export interface ComponentPair
     inputData: any;
 }
 
-interface ItemProps {
+interface ItemProps
+{
     key: number;
     width: string;
     pair: ComponentPair;
@@ -51,7 +52,7 @@ const Item: FunctionComponent<ItemProps> = (props: ItemProps) => (
     <ItemContainer key={props.key} width={props.width}>
         <props.pair.component inputData={props.pair.inputData}/>
     </ItemContainer>
-)
+);
 
 export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>
     (

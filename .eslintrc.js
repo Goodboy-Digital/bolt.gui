@@ -3,6 +3,7 @@ module.exports = {
         amd: true,
         node: true,
         browser: true,
+        es6: true,
     },
     extends: [
         'plugin:react/recommended',
@@ -182,7 +183,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['*.spec.ts[x]'],
+            files: ['*.spec.ts'],
             rules: {
                 'no-unused-expressions': 'off',
                 'jest/no-disabled-tests': 'warn',
@@ -190,6 +191,9 @@ module.exports = {
                 'jest/no-identical-title': 'error',
                 'jest/prefer-to-have-length': 'warn',
                 'jest/valid-expect': 'off',
+                '@typescript-eslint/ban-ts-comment': 'off',
+                'dot-notation': 'off',
+                'jest/no-commented-out-tests': 'off',
             },
         },
         {

@@ -1,9 +1,10 @@
 import React, { Component, FunctionComponent } from 'react';
+
 import { WindowContainerData } from './panels/WindowContainer';
 import { render } from 'react-dom';
 import styled from 'styled-components';
 
-export interface ViewData 
+export interface ViewData
 {
     component: FunctionComponent<WindowContainerData>;
     props: WindowContainerData;
@@ -53,8 +54,8 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         return (
             <BoltContainer>
                 {
-                    this.views.map((view, index) => {
-                        return (
+                    this.views.map((view, index) =>
+                        (
                             <view.component
                                 key={index}
                                 defaultContainerPosition={view.props.defaultContainerPosition}
@@ -67,8 +68,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                 panelData={view.props.panelData}
                                 activeTabIndex={this.state.activeTab}
                             />
-                        )
-                    })
+                        ))
                 }
             </BoltContainer>
         );
