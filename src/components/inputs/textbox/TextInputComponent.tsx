@@ -16,7 +16,12 @@ export interface TextInputComponentProps
         inputTextColour?: string;
         inputTextSize?: string;
         disabled?: boolean;
+        inputValue?: string;
+        step?: number;
         callOnChange?: (value: any) => any;
+        callOnInputCapture?: (value: any) => any;
+        callOnBlur?: (value: any) => any;
+        callOnSubmit?: (value: any) => any;
     };
 }
 
@@ -86,6 +91,9 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
     }
 
     const onChange = data.callOnChange ? data.callOnChange : () => { /** */ };
+    const onInput = data.callOnInputCapture ? data.callOnInputCapture : () => { /** */ };
+    const onBlur = data.callOnBlur ? data.callOnBlur : () => { /** */ };
+    const onSubmit = data.callOnSubmit ? data.callOnSubmit : () => { /** */ };
 
     return (
         <Container>
@@ -107,8 +115,15 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
                     defaultValue={data.defaultText}
                     height={data.inputHeight}
                     width={data.inputWidth}
+                    value={data.inputValue}
                     onChange={(e) => onChange(e.target.value)}
-                />)}
+                    step={data.step || 1}
+                    // @ts-ignore
+                    onInput={(e) => onInput(e.target.value)}
+                    onBlur={(e) => onBlur(e.target.value)}
+                    // @ts-ignore
+                    onSubmit={(e) => onBlur(e.target.value)}
+                    />)}
             {
                 (data.inputType && data.inputType === 'textarea') && <TextArea
                     textColour={data.inputTextColour}
@@ -118,7 +133,13 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
                     defaultValue={data.defaultText}
                     height={data.inputHeight}
                     width={data.inputWidth}
+                    value={data.inputValue}
                     onChange={(e) => onChange(e.target.value)}
+                    // @ts-ignore
+                    onInput={(e) => onInput(e.target.value)}
+                    onBlur={(e) => onBlur(e.target.value)}
+                    // @ts-ignore
+                    onSubmit={(e) => onSubmit(e.target.value)}
                 />}
         </Container>
     );

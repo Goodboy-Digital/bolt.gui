@@ -2,7 +2,7 @@ import {Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 
 import { BoltGUI, BoltProps } from '../BoltGUI';
 import { WindowContainer } from '../panels/WindowContainer';
-import { ButtonInputComponent, Label, TextInputComponent, BlankInputComponent } from '../inputs';
+import { ButtonInputComponent, Label, TextInputComponent, BlankInputComponent, RangeInputComponent } from '../inputs';
 import goodboyLogo from '../../assets/goodboy-logo.png';
 
 <Meta title="Components/Bolt" component={BoltGUI} />
@@ -32,10 +32,36 @@ import { BoltGUI } from 'my-components'
                 id: 'E',
                 elements: [
                     {
+                        label: 'cheese',
                         rows: [
                             {
                                 components: [
                                     { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { label: 'cheese', min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { label: 'cheese', min: 2, max: 12, step: 0.1, callOnChange: (value) => console.log(value), thumbWidth: '60px', textInputWidth: '100px' }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { label: 'cheese', min: 2, max: 12, callOnChange: (value) => console.log(value), trackFillColour: 'purple' }},
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        label: 'disabled slide',
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { value: 5, min: 2, max: 12, callOnChange: (value) => console.log(value), trackFillColour: 'purple', disabled: true }},
                                 ]
                             },
                         ]
@@ -102,6 +128,11 @@ import { BoltGUI } from 'my-components'
                             {
                                 components: [
                                     { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputWidth: '95%', inputType: 'text' }},
                                 ]
                             },
                         ]

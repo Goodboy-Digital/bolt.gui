@@ -21,7 +21,6 @@ export interface ComponentPair
 }
 
 interface ItemProps {
-    key: number;
     width: string;
     pair: ComponentPair;
 }
@@ -48,7 +47,7 @@ const ItemContainer = styled.div<ItemContainerProps>`
 `;
 
 const Item: FunctionComponent<ItemProps> = (props: ItemProps) => (
-    <ItemContainer key={props.key} width={props.width}>
+    <ItemContainer width={props.width}>
         <props.pair.component inputData={props.pair.inputData}/>
     </ItemContainer>
 )
