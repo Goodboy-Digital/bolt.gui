@@ -158,9 +158,9 @@ const RangeInput = styled.input<RangeOptions>`
         appearance: none;
         margin: 0;
         height: ${(props: RangeOptions): string => (props.thumbHeight ? props.thumbHeight : '20px')};
-        width: 100;
+        width: ${(props: RangeOptions): string => (props.thumbWidth ? props.thumbWidth : '20px')};
         background: ${(props: RangeOptions): string => (props.thumbColour)};
-        border-radius: 100%;
+        border-radius: 3px;
         border: 0;
         transition: background-color 150ms;
     }
