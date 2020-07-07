@@ -1,5 +1,5 @@
 {
-  "name": "bolt.gui",
+  "name": "@goodboydigital/bolt",
   "version": "0.0.0",
   "description": "A highly flexible GUI for managing variables in JavaScript",
   "keywords": [],
@@ -16,17 +16,20 @@
     "Sean Mccumskay <seanmccumskay@goodboydigital.com>"
   ],
   "main": "build/index.js",
-  "module": "build/index.es.js",
-  "types": "build/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.js",
   "files": [
-    "build"
+    "build",
+    "lib"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "clean": "rimraf \"{dist,lib,docs}\"",
+    "prebuild": "npm run clean",
+    "build": "rollup -c && npm run build:tsc",
+    "build:tsc": "tsc -p ./tsconfig.build.json",
+    "clean": "rimraf \"{dist,lib,docs,build,coverage}\"",
     "lint": "npm run lint:ts && npm run lint:css",
     "lint:ts": "eslint --ext .tsx --ext .ts src --ignore-path .gitignore --max-warnings 0",
-    "lint:ts:fix": "npm run lint -- --fix",
+    "lint:ts:fix": "npm run lint:ts -- --fix",
     "lint:css": "stylelint src/**/*.ts[x]",
     "storybook": "start-storybook",
     "test": "jest --coverage",
@@ -70,19 +73,21 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-tsdoc": "^0.2.5",
     "husky": "^4.2.5",
-    "jest": "^26.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.0.1",
     "micromatch": "^4.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "rimraf": "3.0.2",
     "rollup": "^2.11.2",
+    "rollup-plugin-image-files": "^1.4.2",
     "rollup-plugin-typescript2": "^0.27.0",
     "stylelint": "^13.6.1",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
-    "ts-jest": "^26.1.1",
+    "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.3",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.6"
+    "typescript": "^3.8.3"
   }
 }

@@ -14,10 +14,10 @@ interface ItemContainerProps
     width: string;
 }
 
-export interface ComponentPair
+export interface ComponentPair<T = any>
 {
     component: FunctionComponent<BaseInputProps>;
-    inputData: any;
+    inputData: T;
 }
 
 interface ItemProps

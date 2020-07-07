@@ -1,6 +1,7 @@
 import { BaseController, BaseControllerOptions, BaseEvents } from '../BaseController';
 import { ComponentController, ComponentControllerOptions } from './ComponentController';
 
+import { PanelData } from './../../../components/panels/ContentPanel';
 import { WindowController } from './WindowController';
 import { removeItem } from '../../../utils';
 
@@ -21,7 +22,7 @@ export interface PanelEvents extends BaseEvents
 export class PanelController extends BaseController<PanelEvents>
 {
     public window: WindowController;
-    protected _groups: any[] = [];
+    protected _groups: ComponentController[] = [];
 
     /**
      * Is the panel currently visible.
@@ -29,10 +30,21 @@ export class PanelController extends BaseController<PanelEvents>
      */
     protected _visible: boolean;
 
+    public dirty = false;
+
     constructor(options: PanelControllerOptions)
     {
         super(options);
         this._add(options.parent);
+    }
+
+    _getData(): PanelData
+    {
+        return {
+            title: this._style?.title,
+            id: this._style?.id,
+            elements: this._groups.map((value) => value._getData()),
+        };
     }
 
     /**
@@ -43,6 +55,7 @@ export class PanelController extends BaseController<PanelEvents>
         this.window = parent;
         this.window._addPanel(this);
         this.emit('added');
+        this.dirty = true;
     }
 
     /**
@@ -53,6 +66,7 @@ export class PanelController extends BaseController<PanelEvents>
         this.window._removePanel(this);
         this.window = null;
         this.emit('removed');
+        this.dirty = true;
     }
 
     /**
@@ -77,6 +91,8 @@ export class PanelController extends BaseController<PanelEvents>
 
         this._groups.push(row);
 
+        this.dirty = true;
+
         return row;
     }
 
@@ -88,6 +104,8 @@ export class PanelController extends BaseController<PanelEvents>
         }
 
         this._groups = removeItem(this._groups, componentController);
+
+        this.dirty = true;
     }
 
     // public addInputGroup<T>(test: InputBindingObject<T, BaseInputOptions>[][], options: ComponentControllerOptions): string

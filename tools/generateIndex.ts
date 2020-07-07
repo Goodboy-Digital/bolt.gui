@@ -6,7 +6,7 @@ import tsconfig from '../tsconfig.json';
 // Read exclude list from tsconfig
 const excludeList = tsconfig.exclude || [];
 
-excludeList.push('**/__tests__/**', '**/assets/**');
+excludeList.push('**/__tests__/**', '**/assets/**', '**/__stories__/**');
 
 const args = {};
 

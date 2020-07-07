@@ -1,3 +1,4 @@
+import { BoltGUI, ViewData } from './../components/BoltGUI';
 import {
     InputBindingConstructor,
     NumberBinding,
@@ -5,7 +6,6 @@ import {
     WindowControllerOptions,
 } from './controllers';
 
-import { BoltGUI } from './../components/BoltGUI';
 import { PanelControllerOptions } from './controllers/windows/PanelController';
 import { WindowController } from './controllers/windows/WindowController';
 
@@ -24,6 +24,43 @@ export class BoltClass
 
         BoltClass._bindingTests = [];
         this.addTest(NumberBinding);
+
+        this._update();
+    }
+
+    private _update(): void
+    {
+        let updateDisplay = false;
+
+        for (let i = 0; i < this._panels.length; i++)
+        {
+            const panel = this._panels[i];
+
+            if (panel.dirty)
+            {
+                updateDisplay = true;
+                panel.dirty = false;
+            }
+        }
+
+        updateDisplay && this._updateGUI();
+        this.gui.render();
+        requestAnimationFrame(this._update.bind(this));
+    }
+
+    private _updateGUI(): void
+    {
+        // need to gather all of the windows
+        const data: ViewData[] = [];
+
+        this._windows.forEach((window) =>
+        {
+            if (window.children.length === 0) return;
+
+            data.push(window._getData());
+        });
+
+        this.gui['views'] = data;
     }
 
     /**

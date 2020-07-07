@@ -1,5 +1,7 @@
 import { BaseController, BaseControllerOptions } from '../BaseController';
 
+import { ComponentPair } from '../../../components';
+
 export interface BaseInputOptions extends BaseControllerOptions
 {
     label?: string;
@@ -51,7 +53,9 @@ export abstract class InputBinding<T = any, O extends BaseInputOptions = BaseInp
         this.onFinishCallback = options?.onFinish || null;
     }
 
-    setValue(newValue: T[keyof T]): this
+    abstract _getData(): ComponentPair;
+
+    setValue(newValue: string|number|any): this
     {
         this._object[this._property] = newValue;
 
@@ -65,7 +69,7 @@ export abstract class InputBinding<T = any, O extends BaseInputOptions = BaseInp
         return this;
     }
 
-    getValue(): T[keyof T]
+    getValue(): any
     {
         return this._object[this._property];
     }

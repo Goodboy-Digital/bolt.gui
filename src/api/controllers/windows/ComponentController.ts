@@ -1,3 +1,4 @@
+import { ComponentPair, ElementData } from '../../../components';
 import { InputBinding, InputBindingObject } from '../inputs/InputBinding';
 
 import { BoltClass } from '../../Bolt';
@@ -6,6 +7,8 @@ import { removeItem } from '../../../utils';
 export interface ComponentControllerOptions
 {
     label?: string;
+    labelColour?: string;
+    labelFont?: string;
 }
 
 export class ComponentController
@@ -18,6 +21,32 @@ export class ComponentController
         this._options = options;
 
         console.warn(this._options);
+    }
+
+    _getData(): ElementData
+    {
+        const rows: {components: ComponentPair[]}[] = [];
+
+        this._bindings.forEach((value) =>
+        {
+            const components: ComponentPair[] = [];
+
+            value.forEach((t) =>
+            {
+                components.push(t._getData());
+            });
+
+            rows.push({
+                components,
+            });
+        });
+
+        return {
+            label: this._options?.label,
+            labelColour: this._options?.labelColour,
+            labelFont: this._options?.labelFont,
+            rows,
+        };
     }
 
     addInput<T>(data: InputBindingObject<T>[][]): void

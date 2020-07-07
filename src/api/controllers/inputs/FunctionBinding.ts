@@ -1,8 +1,12 @@
-import { BaseInputOptions, InputBinding } from './InputBinding';
+import { ButtonInputComponentData } from './../../../components/inputs/button/ButtonInputComponent';
+import { ComponentPair } from '../../../components';
+import { InputBinding } from './InputBinding';
+import { NOOP } from '../../../utils';
 
-export interface FunctionBindingOptions extends BaseInputOptions
+export interface FunctionBindingOptions
 {
-    onClick: (...params: any[]) => void;
+    label?: string;
+    onClick: (object: any) => void;
 }
 
 export class FunctionBinding<T> extends InputBinding<T, FunctionBindingOptions>
@@ -12,8 +16,30 @@ export class FunctionBinding<T> extends InputBinding<T, FunctionBindingOptions>
         return object[property] instanceof Function;
     }
 
+    onClick: (object: any)=> void;
+
     constructor(object: T, property: keyof T, options?: FunctionBindingOptions)
     {
         super(object, property, options);
+        this.onClick = this._options.onClick || NOOP;
+    }
+
+    _getData(): ComponentPair<ButtonInputComponentData>
+    {
+        return {
+            component: this._view,
+            inputData: {
+                callOnClick: this.fire.bind(this),
+            },
+        } as ComponentPair<ButtonInputComponentData>;
+    }
+
+    fire(): void
+    {
+        this.getValue().call(this._object);
+        if (this.onClick)
+        {
+            this.onClick(this.getValue());
+        }
     }
 }

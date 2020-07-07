@@ -1,7 +1,10 @@
 import { BaseController, BaseControllerOptions, BaseEvents } from '../BaseController';
+import { NOOP, removeItem } from '../../../utils';
 
 import { PanelController } from './PanelController';
-import { removeItem } from '../../../utils';
+import { PanelData } from './../../../components/panels/ContentPanel';
+import { ViewData } from './../../../components/BoltGUI';
+import { WindowContainer } from '../../../components';
 
 export interface WindowEvents extends BaseEvents
 {
@@ -28,6 +31,24 @@ export class WindowController extends BaseController<WindowEvents>
     {
         super(options);
         this.hidden = options.hidden;
+        this._view = WindowContainer;
+    }
+
+    _getData(): ViewData
+    {
+        const panelData: PanelData[] = this.children.map((value) => value._getData());
+
+        return {
+            component: this._view,
+            props: {
+                panelData,
+                expandedX: true,
+                expandedY: true,
+                expandYCallBack: NOOP,
+                setActivePanelCallBack: NOOP,
+                activePanelIndex: 0,
+            },
+        };
     }
 
     /**

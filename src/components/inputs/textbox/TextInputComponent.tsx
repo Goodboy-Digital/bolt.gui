@@ -2,27 +2,30 @@ import React, { FunctionComponent } from 'react';
 
 import styled from 'styled-components';
 
+export interface TextInputComponentData
+{
+    label?: string;
+    labelColour?: string;
+    labelFontSize?: string;
+    defaultText?: string;
+    inputHeight?: string;
+    inputWidth?: string;
+    inputType?: 'text' | 'password' |'textarea' | 'number';
+    inputBackgroundColour?: string;
+    inputTextColour?: string;
+    inputTextSize?: string;
+    disabled?: boolean;
+    inputValue?: string;
+    step?: number;
+    callOnChange?: (value: any) => any;
+    callOnInputCapture?: (value: any) => any;
+    callOnBlur?: (value: any) => any;
+    callOnSubmit?: (value: any) => any;
+}
+
 export interface TextInputComponentProps
 {
-    inputData: {
-        label?: string;
-        labelColour?: string;
-        labelFontSize?: string;
-        defaultText?: string;
-        inputHeight?: string;
-        inputWidth?: string;
-        inputType?: 'text' | 'password' |'textarea' | 'number';
-        inputBackgroundColour?: string;
-        inputTextColour?: string;
-        inputTextSize?: string;
-        disabled?: boolean;
-        inputValue?: string;
-        step?: number;
-        callOnChange?: (value: any) => any;
-        callOnInputCapture?: (value: any) => any;
-        callOnBlur?: (value: any) => any;
-        callOnSubmit?: (value: any) => any;
-    };
+    inputData: TextInputComponentData;
 }
 
 interface InputStyleOptions
@@ -118,9 +121,9 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
                     value={data.inputValue}
                     onChange={(e) => onChange(e.target.value)}
                     step={data.step || 1}
-                    onInput={(e) => onInput(e.target.value)}
-                    onBlur={(e) => onBlur(e.target.value)}
-                    onSubmit={(e) => onBlur(e.target.value)}
+                    onInput={(e) => onInput((e.target as HTMLInputElement).value)}
+                    onBlur={(e) => onBlur((e.target as HTMLInputElement).value)}
+                    onSubmit={(e) => onBlur((e.target as HTMLInputElement).value)}
                 />)}
             {
                 (data.inputType && data.inputType === 'textarea') && <TextArea
@@ -132,10 +135,10 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
                     height={data.inputHeight}
                     width={data.inputWidth}
                     value={data.inputValue}
-                    onChange={(e) => onChange(e.target.value)}
-                    onInput={(e) => onInput(e.target.value)}
-                    onBlur={(e) => onBlur(e.target.value)}
-                    onSubmit={(e) => onSubmit(e.target.value)}
+                    onChange={(e) => onChange((e.target as HTMLTextAreaElement).value)}
+                    onInput={(e) => onInput((e.target as HTMLTextAreaElement).value)}
+                    onBlur={(e) => onBlur((e.target as HTMLTextAreaElement).value)}
+                    onSubmit={(e) => onSubmit((e.target as HTMLTextAreaElement).value)}
                 />}
         </Container>
     );

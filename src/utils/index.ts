@@ -17,3 +17,6 @@ export function insert<T extends any>(arr: T[], index: number, ...newItems: T[])
         ...arr.slice(index),
     ];
 }
+
+// eslint-disable-next-line no-empty-function, @typescript-eslint/no-empty-function
+export function NOOP(): void {}
