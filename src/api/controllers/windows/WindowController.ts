@@ -1,12 +1,17 @@
-import { BaseController, BaseEvents } from './BaseController';
+import { BaseController, BaseControllerOptions, BaseEvents } from '../BaseController';
 
 import { PanelController } from './PanelController';
-import { removeItem } from '../utils';
+import { removeItem } from '../../../utils';
 
 export interface WindowEvents extends BaseEvents
 {
     panelAdded: (panel: PanelController)=>void;
     panelRemoved: (panel: PanelController)=>void;
+}
+
+export interface WindowControllerOptions extends BaseControllerOptions
+{
+    hidden?: false;
 }
 
 /**
@@ -15,13 +20,14 @@ export interface WindowEvents extends BaseEvents
  */
 export class WindowController extends BaseController<WindowEvents>
 {
-    public hidden: boolean;
     public children: PanelController[] = [];
+    public hidden: boolean;
+    protected _activeIndex = 0;
 
-    constructor(style?: any[], view?: any[], hidden = false)
+    constructor(options: WindowControllerOptions = {})
     {
-        super(style, view);
-        this.hidden = hidden;
+        super(options);
+        this.hidden = options.hidden;
     }
 
     /**
@@ -46,6 +52,9 @@ export class WindowController extends BaseController<WindowEvents>
         this.emit('panelRemoved', panel);
     }
 
+    /**
+     * @internal
+     */
     _removeAll(): void
     {
         for (let i = this.children.length - 1; i >= 0; i--)
@@ -54,12 +63,12 @@ export class WindowController extends BaseController<WindowEvents>
         }
     }
 
-    show(): void
+    public show(): void
     {
         this.hidden = false;
     }
 
-    hide(): void
+    public hide(): void
     {
         this.hidden = true;
     }

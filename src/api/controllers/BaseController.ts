@@ -8,6 +8,12 @@ export interface BaseEvents
     closed: ()=> void;
 }
 
+export interface BaseControllerOptions
+{
+    style?: any;
+    view?: any;
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export abstract class BaseController<EVENTS extends BaseEvents = BaseEvents> extends EventEmitter<EVENTS>
@@ -15,11 +21,11 @@ export abstract class BaseController<EVENTS extends BaseEvents = BaseEvents> ext
     protected _style: any;
     protected _view: any;
 
-    constructor(style?: any[], view?: any[])
+    constructor(options: BaseControllerOptions = {})
     {
         super();
-        this._style = style;
-        this._view = view;
+        this._style = options.style;
+        this._view = options.view;
     }
 
     public setView(): void

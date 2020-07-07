@@ -23,6 +23,7 @@ module.exports = {
         sourceType: 'module',
     },
     rules: {
+        'dot-notation': 0,
         'tsdoc/syntax': 1,
         '@typescript-eslint/semi': 1,
         '@typescript-eslint/brace-style': [1, 'allman', { allowSingleLine: true }],
@@ -48,7 +49,6 @@ module.exports = {
         'consistent-return': 1,
         curly: [1, 'multi-line'],
         'dot-location': [1, 'property'],
-        'dot-notation': 1,
         eqeqeq: 1,
         'no-alert': 1,
         'no-caller': 1,

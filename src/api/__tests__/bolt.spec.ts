@@ -1,6 +1,6 @@
+import { PanelController, WindowController } from '../controllers';
+
 import { BoltClass } from './../Bolt';
-import { PanelController } from './../PanelController';
-import { WindowController } from '../WindowController';
 
 describe('Bolt', () =>
 {

@@ -1,6 +1,13 @@
+import {
+    InputBindingConstructor,
+    NumberBinding,
+    PanelController,
+    WindowControllerOptions,
+} from './controllers';
+
 import { BoltGUI } from './../components/BoltGUI';
-import { PanelController } from './PanelController';
-import { WindowController } from './WindowController';
+import { PanelControllerOptions } from './controllers/windows/PanelController';
+import { WindowController } from './controllers/windows/WindowController';
 
 export class BoltClass
 {
@@ -8,11 +15,15 @@ export class BoltClass
     protected _panels: PanelController[] = [];
     protected _defaultWindow: WindowController;
     protected _windows: WindowController[] = [];
+    protected static _bindingTests: InputBindingConstructor[];
 
     constructor()
     {
         this._defaultWindow = this.createWindow();
         BoltGUI.init();
+
+        BoltClass._bindingTests = [];
+        this.addTest(NumberBinding);
     }
 
     /**
@@ -20,14 +31,16 @@ export class BoltClass
      * @param window - window to add the panel too
      * This will default to the default window created by Bolt
      */
-    public createPanel(window: WindowController = this._defaultWindow): PanelController
+    public createPanel(window: WindowController = this._defaultWindow, options?: PanelControllerOptions): PanelController
     {
-        const panel = new PanelController({ parent: window });
+        const panel = new PanelController({ ...options, parent: window });
 
         this._panels.push(panel);
 
         return panel;
     }
+
+    // TODO: implement an addPanel() to allow for a panel to be added back after being removed
 
     /**
      * Removes a panel from a window
@@ -98,12 +111,11 @@ export class BoltClass
 
     /**
      * Creates a new window in which you can add panels too.
-     * @param style - style for the window
-     * @param view - view for the window
+     * @param options - options for the window
      */
-    public createWindow(style?: any[], view?: any[]): WindowController
+    public createWindow(options?: WindowControllerOptions): WindowController
     {
-        const window = new WindowController(style, view);
+        const window = new WindowController(options);
 
         this._windows.push(window);
 
@@ -116,6 +128,11 @@ export class BoltClass
     public refresh(): void
     {
         // refreshes the input bindings
+    }
+
+    public addTest(Class: InputBindingConstructor): void
+    {
+        BoltClass._bindingTests.push(Class);
     }
 
     /* eslint-disable */
