@@ -2,7 +2,7 @@ import {Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 
 import { BoltGUI, BoltProps } from '../BoltGUI';
 import { WindowContainer } from '../panels/WindowContainer';
-import { ButtonInputComponent, Label, TextInputComponent, BlankInputComponent } from '../inputs';
+import { ButtonInputComponent, Label, TextInputComponent, BlankInputComponent, RangeInputComponent } from '../inputs';
 import goodboyLogo from '../../assets/goodboy-logo.png';
 
 <Meta title="Components/Bolt" component={BoltGUI} />
@@ -32,24 +32,90 @@ import { BoltGUI } from 'my-components'
                 id: 'E',
                 elements: [
                     {
+                        label: 'cheese',
                         rows: [
                             {
                                 components: [
                                     { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
                                 ]
                             },
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { label: 'cheese', min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { label: 'cheese', min: 2, max: 12, step: 0.1, callOnChange: (value) => console.log(value), thumbWidth: '60px', textInputWidth: '100px' }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { label: 'cheese', min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
                         ]
-                    }
+                    },
+                    {
+                        label: 'disabled slide',
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { value: 5, min: 2, max: 12, callOnChange: (value) => console.log(value), disabled: true }},
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        label: 'cha cha slide',
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        label: 'to the left',
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        label: 'to the right',
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        label: 'slide whistle',
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
                 ],
             },
             ],
             activeTabIndex: 0
-        }
+        },
       },
       {
         component: WindowContainer,
         props: {
-            defaultContainerPosition: { x: '450px' , y: '50px' },
+            defaultContainerPosition: { x: '850px' , y: '50px' },
             expandedX: true,
             expandedY: true,
             expandYCallBack: () => {},
@@ -72,8 +138,21 @@ import { BoltGUI } from 'my-components'
                                         component: ButtonInputComponent, inputData: {
                                         buttonText: 'Clicky',
                                         callOnClick: () => { console.log('ive been clicked')},
-                                        inputWidth: '98%',
                                     }}
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: 'Panel 2',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
                                 ]
                             },
                         ]
@@ -87,7 +166,139 @@ import { BoltGUI } from 'my-components'
       {
         component: WindowContainer,
         props: {
-            defaultContainerPosition: { x: '850px' , y: '50px' },
+            defaultContainerPosition: { x: '450px' , y: '50px' },
+            expandedX: true,
+            expandedY: true,
+            expandYCallBack: () => {},
+            setActiveTabCallBack: () => {},
+            forceLogoIcon: true,
+            panelData: [
+            {
+                title: 'Example',
+                id: 'E',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputType: 'text' }},
+                                ]
+                            },
+                        ]
+                    }
+                ],
+            },
+                        {
+                title: 'Panel 2',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: 'Panel 2',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '3',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '4',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '5',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '6',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '7',
+                elements: [
+                    {
+                        rows: [
+                            {
+                                components: [
+                                    { component: RangeInputComponent, inputData: { min: 2, max: 12, callOnChange: (value) => console.log(value) }},
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            ],
+            activeTabIndex: 0
+        }
+      },
+      {
+        component: WindowContainer,
+        props: {
+            defaultContainerPosition: { x: '1250px' , y: '50px' },
             expandedX: true,
             expandedY: true,
             expandYCallBack: () => {},
@@ -102,6 +313,11 @@ import { BoltGUI } from 'my-components'
                             {
                                 components: [
                                     { component: Label, inputData: { label: 'Hello world! Welcome to Bolt.gui', textAlign: 'center' }},
+                                ]
+                            },
+                            {
+                                components: [
+                                    { component: TextInputComponent, inputData: { callOnChange: (value) => console.log(value), inputType: 'text' }},
                                 ]
                             },
                         ]

@@ -14,24 +14,28 @@ export interface WindowContainerData
     defaultContainerHeight?: string;
     /** container width, defaults to 'auto' */
     defaultContainerWidth?: string;
-    /** Custom tab button height, defaults to '100px' */
-    tabButtonHeight?: string;
-    /** Custom tab button width, defaults to '100px' */
-    tabButtonWidth?: string;
+    /** Custom Panel button height, defaults to '100px' */
+    panelButtonHeight?: string;
+    /** Custom Panel button width, defaults to '100px' */
+    panelButtonWidth?: string;
     /** toggles expansion of content */
     panelWidth?: string;
     /** toggles expansion of content */
     expandedX: boolean;
     /** toggles expansion vertically */
     expandedY: boolean;
-    /** callback for */
+    /** callback for expanding and collapsing on y*/
     expandYCallBack: ()=> void;
-    /** callback for setting the active tab */
-    setActiveTabCallBack: (index: number)=> void;
-    /** Array of tab information used to construct UI */
+    /** callback for setting the active Panel */
+    setActivePanelCallBack: (index: number)=> void;
+    /** Array of Panel information used to construct UI */
     panelData: PanelData[];
-    /** Index of current active tab in tab data array */
-    activeTabIndex: number;
+    /** Index of current active Panel in Panel data array */
+    activePanelIndex: number;
+    /** Forces icon column to be displayed */
+    forceIconColumn?: boolean;
+    /** Forces display of logo icon */
+    forceLogoIcon?: boolean;
 }
 
 interface ContainerProps
@@ -43,10 +47,16 @@ interface ContainerProps
     width: string;
 }
 
-interface TabColumnProps
+interface PanelColumnProps
 {
     showScroll: boolean;
     width?: string;
+}
+
+interface ItemsContainerProps
+{
+    forceLogoIcon?: boolean;
+    expandedY?: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -64,25 +74,29 @@ const Container = styled.div<ContainerProps>`
     display: flex;
 `;
 
-const TabColumn = styled.div<TabColumnProps>`
+const PanelColumn = styled.div<PanelColumnProps>`
     border: 0;
     margin: 0;
     height: 100%;
-    width: ${(props: TabColumnProps): string => (props.width ? props.width : '48px')};
-    overflow: hidden;
+    width: ${(props: PanelColumnProps): string => (props.width ? props.width : '48px')};
 `;
 
-const ItemsContainer = styled.div`
+const ItemsContainer = styled.div<ItemsContainerProps>`
     border: 0;
     margin: 0;
+    height: calc(100% - ${(props: ItemsContainerProps) => (props.forceLogoIcon ? '48px' : '0px')});
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: ${(props: ItemsContainerProps) => (props.expandedY ? 'scroll' : 'hidden')};
     ::-webkit-scrollbar {display:none;}
+    scrollbar-width: none;
 `;
 
 export const WindowContainer: FunctionComponent<WindowContainerData> = (props: WindowContainerData) =>
-    (
+{
+    const showIconBar = (props.panelData.length > 1) || props.forceIconColumn || props.forceLogoIcon || !props.expandedY;
+
+    return (
         <Container
             height={props.defaultContainerHeight ? props.defaultContainerHeight : '272px'}
             width={props.defaultContainerWidth ? props.defaultContainerWidth : 'auto'}
@@ -90,39 +104,49 @@ export const WindowContainer: FunctionComponent<WindowContainerData> = (props: W
             expandedY={props.expandedY}
             position={props.defaultContainerPosition}
         >
-            <TabColumn showScroll={props.expandedY} width={props.tabButtonWidth}>
-                <PanelIconComponent
-                    id={'Bolt'}
-                    imgSrc={goodboyLogo}
-                    imgAlt={'Bolt GUI'}
-                    clickCallback={() => props.expandYCallBack()}
-                    tabButtonHeight={props.tabButtonHeight}
-                    tabButtonWidth={props.tabButtonWidth}
-                    active={props.expandedY}
-                />
-                <ItemsContainer>
-                    {
-                        props.panelData.map((panel, index) =>
-                            (
-                                <PanelIconComponent
-                                    id={panel.id ? panel.id : panel.title.slice(0, 1)}
-                                    idColour={panel.idColour}
-                                    tabColour={panel.tabColour}
-                                    tabButtonHeight={props.tabButtonHeight}
-                                    tabButtonWidth={props.tabButtonWidth}
-                                    imgSrc={panel.tabImg}
-                                    imgAlt={panel.imgAlt}
-                                    clickCallback={() => props.setActiveTabCallBack(index)}
-                                    active={index === props.activeTabIndex}
-                                    key={index}
-                                />
-                            ))
+            {showIconBar
+                && <PanelColumn showScroll={props.expandedY} width={props.panelButtonWidth}>
+                    {props.forceLogoIcon
+                        && <PanelIconComponent
+                            id={'Bolt'}
+                            imgSrc={goodboyLogo}
+                            imgAlt={'Bolt GUI'}
+                            clickCallback={() => props.expandYCallBack()}
+                            panelButtonHeight={props.panelButtonHeight}
+                            panelButtonWidth={props.panelButtonWidth}
+                            active={props.expandedY}
+                        />
                     }
-                </ItemsContainer>
-            </TabColumn>
+                    <ItemsContainer
+                        forceLogoIcon={props.forceLogoIcon}
+                        expandedY={props.expandedY}
+                    >
+                        {
+                            props.panelData.map((panel, index) =>
+                                (
+                                    <PanelIconComponent
+                                        id={panel.id ? panel.id : panel.title.slice(0, 1)}
+                                        idColour={panel.idColour}
+                                        panelColour={panel.panelColour}
+                                        panelButtonHeight={props.panelButtonHeight}
+                                        panelButtonWidth={props.panelButtonWidth}
+                                        imgSrc={panel.panelImg}
+                                        imgAlt={panel.imgAlt}
+                                        clickCallback={() => (props.expandedY
+                                            ? props.setActivePanelCallBack(index) : props.expandYCallBack())}
+                                        active={(index === props.activePanelIndex) && props.expandedY}
+                                        key={index}
+                                    />
+                                ))
+                        }
+                    </ItemsContainer>
+                </PanelColumn>
+            }
             <ContentPanel
                 panelWidth={props.expandedY ? props.panelWidth : '0'}
-                panelData={props.panelData[props.activeTabIndex]}
+                expandYCallBack={props.expandYCallBack}
+                panelData={props.panelData[props.activePanelIndex]}
             ></ContentPanel>
         </Container>
     );
+};

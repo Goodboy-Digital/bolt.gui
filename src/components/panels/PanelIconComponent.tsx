@@ -4,23 +4,23 @@ import styled from 'styled-components';
 
 export interface PanelIconComponentProps
 {
-    /** optional custom tab button height, defaults to '100px' */
-    tabButtonHeight?: string;
-    /** optional custom tab button width, defaults to '100px' */
-    tabButtonWidth?: string;
-    /** optional background colour of tab */
-    tabColour?: string;
-    /** callback function for tab click */
+    /** optional custom panel button height, defaults to '100px' */
+    panelButtonHeight?: string;
+    /** optional custom panel button width, defaults to '100px' */
+    panelButtonWidth?: string;
+    /** optional background colour of panel */
+    panelColour?: string;
+    /** callback function for panel click */
     clickCallback: ()=> void;
-    /** tab id */
+    /** panel id */
     id: string;
-    /** optional custom colour of tab id text, defaults to white */
+    /** optional custom colour of panel id text, defaults to white */
     idColour?: string;
-    /** optional image to replace tab id */
+    /** optional image to replace panel id */
     imgSrc?: string;
     /** optional alt text for src img */
     imgAlt?: string;
-    /** true if tab is currently active */
+    /** true if panel is currently active */
     active: boolean;
 }
 
@@ -42,6 +42,7 @@ interface ChildProps
 const Container = styled.div<ContainerProps>`
     width: ${(props: ContainerProps): string => (props.width ? props.width : '48px')};
     height: ${(props: ContainerProps): string => (props.height ? props.height : '48px')};
+    min-height: ${(props: ContainerProps): string => (props.height ? props.height : '48px')};
     padding: 0;
     background: ${(props: ContainerProps): string => (props.colour ? props.colour : '#3F51B5')};
     border-left: ${(props: ContainerProps): string => (props.active ? '3px solid white' : '0')};
@@ -64,7 +65,7 @@ const Container = styled.div<ContainerProps>`
     }
 `;
 
-const TabText = styled.h2<ChildProps>`
+const PanelText = styled.h2<ChildProps>`
     font-family: Roboto, sans-serif;
     font-size: 28px;
     font-style: bold;
@@ -80,9 +81,9 @@ const Logo = styled.img<ChildProps>`
 export const PanelIconComponent: FunctionComponent<PanelIconComponentProps> = (props: PanelIconComponentProps) =>
     (
         <Container
-            height={props.tabButtonHeight}
-            width={props.tabButtonWidth}
-            colour={props.tabColour}
+            height={props.panelButtonHeight}
+            width={props.panelButtonWidth}
+            colour={props.panelColour}
             onClick={(): any => props.clickCallback()}
             active={props.active}
         >
@@ -96,12 +97,12 @@ export const PanelIconComponent: FunctionComponent<PanelIconComponentProps> = (p
                         }
                         active={props.active}
                     />
-                    : <TabText
+                    : <PanelText
                         colour={props.idColour}
                         active={props.active}
                     >
                         {props.id}
-                    </TabText>
+                    </PanelText>
             }
         </Container>
     );

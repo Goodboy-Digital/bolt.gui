@@ -19,7 +19,7 @@ export interface BoltState
 {
     expandedX: boolean;
     expandedY: boolean;
-    activeTab: number;
+    activePanel: number;
 }
 
 const BoltContainer = styled.div``;
@@ -34,7 +34,7 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         this.state = {
             expandedX: true,
             expandedY: true,
-            activeTab: 0,
+            activePanel: 0,
         };
 
         this.views = props.viewData || [];
@@ -64,9 +64,11 @@ export class BoltGUI extends Component<BoltProps, BoltState>
                                 expandedX={this.state.expandedX}
                                 expandedY={this.state.expandedY}
                                 expandYCallBack={this.toggleExpandedY.bind(this)}
-                                setActiveTabCallBack={this.setActiveTab.bind(this)}
+                                setActivePanelCallBack={this.setActivePanel.bind(this)}
                                 panelData={view.props.panelData}
-                                activeTabIndex={this.state.activeTab}
+                                activePanelIndex={this.state.activePanel}
+                                forceIconColumn={index === 0 || view.props.forceIconColumn}
+                                forceLogoIcon={index === 0 || view.props.forceLogoIcon}
                             />
                         ))
                 }
@@ -84,9 +86,9 @@ export class BoltGUI extends Component<BoltProps, BoltState>
         this.setState({ expandedY: !this.state.expandedY });
     }
 
-    public setActiveTab(newState: number): void
+    public setActivePanel(newState: number): void
     {
-        this.setState({ activeTab: newState });
+        this.setState({ activePanel: newState });
     }
 
     // STATIC MEMBERS --------------------------------------------------
