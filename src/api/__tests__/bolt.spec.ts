@@ -9,6 +9,7 @@ describe('Bolt', () =>
     beforeEach(() =>
     {
         Bolt = new BoltClass();
+        Bolt.init();
     });
 
     it('should have a default window', () =>
@@ -53,6 +54,16 @@ describe('Bolt', () =>
 
         expect(panel.window).toBeNull();
         expect(panel2.window).toBeNull();
+    });
+
+    it('should show something on screen', () =>
+    {
+        const obj = { test: 10 };
+        const panel = Bolt.createPanel();
+
+        panel.addInput(obj, 'test');
+
+        expect(obj.test).toEqual(10);
     });
 
     // it('should dispose of a panel', () =>

@@ -1,5 +1,5 @@
 import { BaseInputOptions, InputBinding } from './InputBinding';
-import { ComponentPair, TextInputComponentData } from '../../../components';
+import { ComponentPair, TextInputComponent, TextInputComponentData } from '../../../components';
 
 export interface NumberBindingOptions extends BaseInputOptions
 {
@@ -25,7 +25,7 @@ export class NumberBinding<T> extends InputBinding<T, NumberBindingOptions>
     _getData(): ComponentPair<TextInputComponentData>
     {
         return {
-            component: this._view,
+            component: this._view || TextInputComponent,
             inputData: {
                 inputType: 'number',
                 callOnChange: this.onChange.bind(this),

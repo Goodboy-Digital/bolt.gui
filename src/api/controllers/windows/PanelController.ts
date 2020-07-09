@@ -16,9 +16,6 @@ export interface PanelEvents extends BaseEvents
     added: ()=> void;
 }
 
-// TODO: add rowController/inputController
-// change name of current input controller to binding
-
 export class PanelController extends BaseController<PanelEvents>
 {
     public window: WindowController;
@@ -41,7 +38,7 @@ export class PanelController extends BaseController<PanelEvents>
     _getData(): PanelData
     {
         return {
-            title: this._style?.title,
+            title: this._style?.title || 'D',
             id: this._style?.id,
             elements: this._groups.map((value) => value._getData()),
         };

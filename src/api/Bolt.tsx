@@ -1,4 +1,4 @@
-import { BoltGUI, ViewData } from './../components/BoltGUI';
+import { BoltGUI, ViewData } from '../components/BoltGUI';
 import {
     InputBindingConstructor,
     NumberBinding,
@@ -7,11 +7,12 @@ import {
 } from './controllers';
 
 import { PanelControllerOptions } from './controllers/windows/PanelController';
+import React from 'react';
 import { WindowController } from './controllers/windows/WindowController';
+import { render } from 'react-dom';
 
 export class BoltClass
 {
-    protected gui: BoltGUI = new BoltGUI({});
     protected _panels: PanelController[] = [];
     protected _defaultWindow: WindowController;
     protected _windows: WindowController[] = [];
@@ -20,10 +21,21 @@ export class BoltClass
     constructor()
     {
         this._defaultWindow = this.createWindow();
-        BoltGUI.init();
 
         BoltClass._bindingTests = [];
         this.addTest(NumberBinding);
+    }
+
+    public init(): void
+    {
+        let element = document.getElementById('editor-holder');
+
+        if (!element)
+        {
+            element = document.createElement('div');
+            element.id = 'editor-holder';
+            document.body.appendChild(element);
+        }
 
         this._update();
     }
@@ -44,7 +56,6 @@ export class BoltClass
         }
 
         updateDisplay && this._updateGUI();
-        this.gui.render();
         requestAnimationFrame(this._update.bind(this));
     }
 
@@ -60,7 +71,11 @@ export class BoltClass
             data.push(window._getData());
         });
 
-        this.gui['views'] = data;
+        const element = document.getElementById('editor-holder');
+
+        if (!element) return;
+
+        render(<BoltGUI viewData={data} />, element);
     }
 
     /**

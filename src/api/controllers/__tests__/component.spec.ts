@@ -2,7 +2,7 @@ import { BoltClass } from '../../Bolt';
 import { NumberBinding } from './../inputs/NumberBinding';
 import { PanelController } from '..';
 
-describe('Window Controller', () =>
+describe('Component Controller', () =>
 {
     let Bolt: BoltClass;
     let panel: PanelController;

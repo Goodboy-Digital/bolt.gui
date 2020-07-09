@@ -2,7 +2,7 @@ import { BoltClass } from '../../Bolt';
 import { ComponentController } from '../windows/ComponentController';
 import { PanelController } from '..';
 
-describe('Window Controller', () =>
+describe('Panel Controller', () =>
 {
     let Bolt: BoltClass;
     let panel: PanelController;

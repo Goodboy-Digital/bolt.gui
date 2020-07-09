@@ -1,7 +1,6 @@
 import React, { Component, FunctionComponent } from 'react';
 
 import { WindowContainerData } from './panels/WindowContainer';
-import { render } from 'react-dom';
 import styled from 'styled-components';
 
 export interface ViewData
@@ -89,20 +88,5 @@ export class BoltGUI extends Component<BoltProps, BoltState>
     public setActivePanel(newState: number): void
     {
         this.setState({ activePanel: newState });
-    }
-
-    // STATIC MEMBERS --------------------------------------------------
-
-    public static init(): void // (editor: Editor) - this is where we would pass in the game
-    {
-        let element = document.getElementById('editor-holder');
-
-        if (!element)
-        {
-            element = document.createElement('div');
-            element.id = 'editor-holder';
-            document.body.appendChild(element);
-        }
-        render(<BoltGUI/>, element);
     }
 }

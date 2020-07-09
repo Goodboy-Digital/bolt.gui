@@ -68,3 +68,15 @@ panel.addInputGroup()
 - window
   - lock window so panels cannot be moved or added/removed
   - setting width = 0 creates just the sidebar?
+- Bolt
+  - implement an addPanel() to allow for a panel to be added back after being removed
+  - add refresh for inputs
+  - add show/hide for all windows
+
+## Clean up
+
+- Remove eventemitter stuff for a callback approach
+- Refactor gui data to closure match controller data
+- Refactor interfaces in gui to inherit and be more generic
+- Create more tests
+- Create window manager class to handle states

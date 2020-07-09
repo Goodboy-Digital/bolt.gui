@@ -1,4 +1,5 @@
-import { ButtonInputComponentData } from './../../../components/inputs/button/ButtonInputComponent';
+import { ButtonInputComponent, ButtonInputComponentData } from './../../../components/inputs/button/ButtonInputComponent';
+
 import { ComponentPair } from '../../../components';
 import { InputBinding } from './InputBinding';
 import { NOOP } from '../../../utils';
@@ -27,7 +28,7 @@ export class FunctionBinding<T> extends InputBinding<T, FunctionBindingOptions>
     _getData(): ComponentPair<ButtonInputComponentData>
     {
         return {
-            component: this._view,
+            component: this._view || ButtonInputComponent,
             inputData: {
                 callOnClick: this.fire.bind(this),
             },

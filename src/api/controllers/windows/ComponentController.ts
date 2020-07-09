@@ -19,8 +19,6 @@ export class ComponentController
     constructor(options?: ComponentControllerOptions)
     {
         this._options = options;
-
-        console.warn(this._options);
     }
 
     _getData(): ElementData

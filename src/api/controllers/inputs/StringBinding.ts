@@ -1,5 +1,5 @@
 import { BaseInputOptions, InputBinding } from './InputBinding';
-import { ComponentPair, TextInputComponentData } from '../../../components';
+import { ComponentPair, TextInputComponent, TextInputComponentData } from '../../../components';
 
 export interface StringBindingOptions extends BaseInputOptions
 {
@@ -26,7 +26,7 @@ export class StringBinding<T> extends InputBinding<T, StringBindingOptions>
     _getData(): ComponentPair<TextInputComponentData>
     {
         return {
-            component: this._view,
+            component: this._view || TextInputComponent,
             inputData: {
                 inputType: 'text',
                 callOnChange: this.onChange.bind(this),
