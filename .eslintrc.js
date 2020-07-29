@@ -113,7 +113,7 @@ module.exports = {
         'array-bracket-spacing': [1, 'never'],
         'block-spacing': [1, 'always'],
         'brace-style': [1, 'allman', { allowSingleLine: true }],
-        camelcase: [1, { properties: 'always' }],
+        camelcase: [1, { properties: 'always', ignoreDestructuring: true }],
         'comma-spacing': [1, { before: false, after: true }],
         'comma-style': [1, 'last'],
         'computed-property-spacing': [1, 'never'],

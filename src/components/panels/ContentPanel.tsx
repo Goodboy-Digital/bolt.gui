@@ -20,6 +20,7 @@ export interface PanelData
     panelColour?: string;
     /** components to be displayed under panel */
     elements: ElementData[];
+    isActive: boolean;
 }
 
 export interface ElementData

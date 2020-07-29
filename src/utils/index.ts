@@ -4,6 +4,12 @@ export interface XY
     y: string;
 }
 
+export interface Size
+{
+    width: string;
+    height: string;
+}
+
 export function removeItem<T extends any>(arr: T[], item: T): T[]
 {
     return arr.filter((f) => f !== item);
