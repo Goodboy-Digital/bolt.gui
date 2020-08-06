@@ -44,6 +44,7 @@
     }
   },
   "dependencies": {
+    "@types/react-redux": "^7.1.9",
     "eventemitter3": "^4.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -79,6 +80,7 @@
     "jest-electron": "^0.1.11",
     "micromatch": "^4.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
+    "react-redux": "5.0.7",
     "rimraf": "3.0.2",
     "rollup": "^2.11.2",
     "rollup-plugin-image-files": "^1.4.2",

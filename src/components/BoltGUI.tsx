@@ -1,42 +1,78 @@
-import React, { Component, FunctionComponent } from 'react';
-
-import { WindowContainerData } from './panels/WindowContainer';
+import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { addWindow, getWindows, toggleWindowExpanded } from '../redux';
+import { ApplicationStore, WindowData } from '../types';
 import styled from 'styled-components';
+import WindowComponent from './panels/WindowComponent';
 
-export interface ViewData
+const mapStateToProps = (store: ApplicationStore) =>
 {
-    component: FunctionComponent<WindowContainerData>;
-    props: WindowContainerData;
-}
-export interface BoltProps
+    const windows = getWindows(store);
+
+    return { windows };
+};
+const mapDispatch = { addWindow, toggleWindowExpanded };
+const connector = connect(mapStateToProps, mapDispatch);
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
+export interface BoltProps extends ReduxProps
 {
     stage?: any; // this will be the reference object for the game if needed
-    viewData?: ViewData[];
-}
-
-export interface BoltState
-{
-    expandedX: boolean;
-    expandedY: boolean;
-    activePanel: number;
 }
 
 const BoltContainer = styled.div``;
 
-export class BoltGUI extends Component<BoltProps, BoltState>
+class BoltGUI extends Component<BoltProps>
 {
-    private views: ViewData[] = [];
-
     constructor(props: BoltProps)
     {
         super(props);
-        this.state = {
-            expandedX: true,
-            expandedY: true,
-            activePanel: 0,
-        };
+    }
 
-        this.views = props.viewData || [];
+    public componentDidMount()
+    {
+        this.addWindow({
+            id: 'window1',
+            expanded: true,
+            position: { x: '40px', y: '40px' },
+            sidebarSize: { height: '250px', width: '50px' },
+            panelSize: { height: '250px', width: '250px' },
+            showSidebar: true,
+            activePanelIndex: 0,
+            panelData: [{
+                id: 'panel1',
+                title: 'Test Panel',
+                icon: {
+                    text: 'Te',
+                    active: true,
+                    size: { height: '40px', width: '40px' },
+                },
+                childIDs: [],
+                isActive: true,
+            }],
+        });
+
+        this.addWindow({
+            id: 'window2',
+            expanded: true,
+            position: { x: '400px', y: '40px' },
+            sidebarSize: { height: '250px', width: '50px' },
+            panelSize: { height: '250px', width: '250px' },
+            showSidebar: true,
+            activePanelIndex: 0,
+            panelData: [{
+                id: 'panel1',
+                title: 'Test Panel',
+                icon: {
+                    text: 'Te',
+                    active: true,
+                    size: { height: '40px', width: '40px' },
+                },
+                childIDs: [],
+                isActive: true,
+            }],
+        });
     }
 
     // public componentWillMount()
@@ -50,43 +86,38 @@ export class BoltGUI extends Component<BoltProps, BoltState>
 
     public render(): JSX.Element
     {
+        console.log(this.props);
+
+        // const windows = Array.from(this.props.windows);
+        const windows: string[] = Object.keys(this.props.windows);
+
         return (
             <BoltContainer>
                 {
-                    this.views.map((view, index) =>
-                        (
-                            <view.component
-                                key={index}
-                                defaultContainerPosition={view.props.defaultContainerPosition}
-                                defaultContainerHeight={view.props.defaultContainerHeight}
-                                defaultContainerWidth={view.props.defaultContainerWidth}
-                                expandedX={this.state.expandedX}
-                                expandedY={this.state.expandedY}
-                                expandYCallBack={this.toggleExpandedY.bind(this)}
-                                setActivePanelCallBack={this.setActivePanel.bind(this)}
-                                panelData={view.props.panelData}
-                                activePanelIndex={this.state.activePanel}
-                                forceIconColumn={index === 0 || view.props.forceIconColumn}
-                                forceLogoIcon={index === 0 || view.props.forceLogoIcon}
-                            />
-                        ))
+                    windows.map((key) =>
+                        (<WindowComponent
+                            key={key}
+                            data={this.props.windows[key]}
+                        />))
                 }
             </BoltContainer>
         );
     }
 
-    public toggleExpandedX(): void
+    public addWindow(windowData: WindowData): void
     {
-        this.setState({ expandedX: !this.state.expandedX });
+        this.props.addWindow(windowData);
     }
 
-    public toggleExpandedY(): void
+    public toggleExpanded(id: string): void
     {
-        this.setState({ expandedY: !this.state.expandedY });
+        this.props.toggleWindowExpanded(id);
     }
 
-    public setActivePanel(newState: number): void
-    {
-        this.setState({ activePanel: newState });
-    }
+    // public setActivePanel(newState: number): void
+    // {
+    //     this.setState({ activePanel: newState });
+    // }
 }
+
+export default connector(BoltGUI);
