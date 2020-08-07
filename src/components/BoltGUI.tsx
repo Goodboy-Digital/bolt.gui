@@ -15,9 +15,9 @@ const mapStateToProps = (store: ApplicationStore) =>
 const mapDispatch = { addWindow, addPanel, setStore, addComponent, toggleWindowExpanded };
 const connector = connect(mapStateToProps, mapDispatch);
 
-type ReduxProps = ConnectedProps<typeof connector>;
+type BoltGUIReduxProps = ConnectedProps<typeof connector>;
 
-export interface BoltProps extends ReduxProps
+export interface BoltProps extends BoltGUIReduxProps
 {
     stage?: any; // this will be the reference object for the game if needed
 }

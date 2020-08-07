@@ -1,6 +1,7 @@
 export * from './actions';
 export * from './component';
 export * from './panel';
+export * from './selectors';
 export * from './sidebar';
 export * from './size';
 export * from './store';

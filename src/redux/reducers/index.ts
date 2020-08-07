@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { ReduxStore, ActionTypes, Actions } from '../../types';
-import { addComponentReducer } from './componentreducers';
-import { addPanelReducer } from './panelreducers';
-import { addWindowReducer, windowToggleExpandReducer } from './windowreducers';
-import { setStoreReducer } from './storereducers';
+import { addComponentReducer } from './componentReducers';
+import { addPanelReducer } from './panelReducers';
+import { addWindowReducer, windowToggleExpandReducer } from './windowReducers';
+import { setStoreReducer } from './storeReducers';
 
 const initialStore: ReduxStore = {
     components: new Map(),

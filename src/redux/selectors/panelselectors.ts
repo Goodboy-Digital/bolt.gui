@@ -1,10 +1,7 @@
-import { ActionTypes, ApplicationStore, PanelData } from './../../types';
+import { ActionTypes, ApplicationStore, PanelData, SelectorReturn } from '../../types';
 
 export const getPanelsByIds = (store: ApplicationStore, panelIds: string[]):
-{
-    type: ActionTypes.GET_PANELS_BY_IDS;
-    payload: PanelData[];
-} =>
+SelectorReturn<ActionTypes.GET_PANELS_BY_IDS, PanelData[]> =>
 {
     const panels: PanelData[] = [];
 
