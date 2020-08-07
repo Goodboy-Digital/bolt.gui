@@ -1,4 +1,4 @@
-import { PanelData, WindowData } from '.';
+import { ApplicationStore, ComponentPair, PanelData, WindowData } from '.';
 
 export enum ActionTypes
     {
@@ -15,11 +15,25 @@ export enum ActionTypes
     DELETE_WINDOW = 'DELETE_WINDOW',
     WINDOW_TOGGLE_EXPAND = 'WINDOW_TOGGLE_EXPAND',
 
+    // Store actions
+    SET_STORE = 'SET_STORE',
+
     // SELECTORS
     GET_WINDOW_EXPANDED = 'GET_WINDOW_EXPANDED',
     GET_SIDEBAR_ICONS = 'GET_SIDEBAR_ICONS',
     GET_COMPONENTS_BY_IDS = 'GET_COMPONENTS_BY_IDS',
     GET_PANELS_BY_IDS = 'GET_PANELS_BY_IDS',
+}
+
+export type Actions = AddComponentAction | AddPanelAction | ExpandWindowAction | AddWindowAction | SetStoreAction;
+
+export interface AddComponentAction
+{
+    type: ActionTypes.ADD_COMPONENT;
+    payload: {
+        componentData: ComponentPair;
+        panelID: string;
+    };
 }
 
 export interface AddPanelAction
@@ -46,4 +60,10 @@ export interface AddWindowAction
     };
 }
 
-export type Actions = AddPanelAction | ExpandWindowAction | AddWindowAction;
+export interface SetStoreAction
+{
+    type: ActionTypes.SET_STORE;
+    payload: {
+        newStore: ApplicationStore;
+    };
+}

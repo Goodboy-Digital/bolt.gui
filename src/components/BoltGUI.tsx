@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { addWindow, addPanel, getWindows, toggleWindowExpanded } from '../redux';
-import { ApplicationStore, WindowData, PanelData } from '../types';
+import { addWindow, addPanel, addComponent, getWindows, toggleWindowExpanded, setStore } from '../redux';
+import { ApplicationStore, WindowData, PanelData, ComponentPair } from '../types';
 import styled from 'styled-components';
 import WindowComponent from './panels/WindowComponent';
 
@@ -9,9 +9,9 @@ const mapStateToProps = (store: ApplicationStore) =>
 {
     const windows = getWindows(store);
 
-    return { windows };
+    return { windows, store };
 };
-const mapDispatch = { addWindow, addPanel, toggleWindowExpanded };
+const mapDispatch = { addWindow, addPanel, setStore, addComponent, toggleWindowExpanded };
 const connector = connect(mapStateToProps, mapDispatch);
 
 type ReduxProps = ConnectedProps<typeof connector>;
@@ -121,6 +121,11 @@ class BoltGUI extends Component<BoltProps>
         );
     }
 
+    public addComponent(componentData: ComponentPair, panelID: string): void
+    {
+        this.props.addComponent(componentData, panelID);
+    }
+
     public addPanel(panelData: PanelData, windowID: string): void
     {
         this.props.addPanel(panelData, windowID);
@@ -134,6 +139,16 @@ class BoltGUI extends Component<BoltProps>
     public toggleExpanded(id: string): void
     {
         this.props.toggleWindowExpanded(id);
+    }
+
+    public setStore(newStore: ApplicationStore): void
+    {
+        this.props.setStore(newStore);
+    }
+
+    public getStore(): ApplicationStore
+    {
+        return this.props.store;
     }
 
     // public setActivePanel(newState: number): void
