@@ -17,8 +17,8 @@ export function addComponentReducer(store: ReduxStore, action: AddComponentActio
             ...store.panels,
             [panelID]: {
                 ...store.panels[panelID],
-                panelIDs: [
-                    ...store.panels[panelID].componentIDs,
+                childIDs: [
+                    ...store.panels[panelID].childIDs,
                     component.id,
                 ],
             },

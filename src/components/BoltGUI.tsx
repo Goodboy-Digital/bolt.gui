@@ -4,6 +4,7 @@ import { addWindow, addPanel, addComponent, getWindows, toggleWindowExpanded, se
 import { ApplicationStore, WindowData, PanelData, ComponentPair } from '../types';
 import styled from 'styled-components';
 import WindowComponent from './panels/WindowComponent';
+import { ButtonInputComponent } from '../components';
 
 const mapStateToProps = (store: ApplicationStore) =>
 {
@@ -90,6 +91,15 @@ class BoltGUI extends Component<BoltProps>
             childIDs: [],
             isActive: false,
         }, 'window2');
+
+        this.addComponent({
+            id: 'button1',
+            component: ButtonInputComponent,
+            inputData: {
+                buttonText: 'click me',
+                callOnClick: (e: any) => { console.log(e); },
+            },
+        }, 'panel1');
     }
 
     // public componentWillMount()
