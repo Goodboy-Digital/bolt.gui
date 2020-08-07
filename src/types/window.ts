@@ -1,4 +1,4 @@
-import { PanelData, Size, XY } from './';
+import { Size, XY } from './';
 
 export interface WindowData
 {
@@ -12,5 +12,5 @@ export interface WindowData
     showSidebar?: boolean;
     panelSize?: Size;
     activePanelIndex: number;
-    panelData: PanelData[];
+    panelIDs: string[];
 }

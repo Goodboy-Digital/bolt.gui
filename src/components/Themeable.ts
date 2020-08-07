@@ -30,7 +30,7 @@ export const defaultAttributes: DefaultAttributes = {
         sidebarShowLogo: true,
         activePanelIndex: 0,
         panelSize: { width: 'auto', height: '48px' },
-        panelData: [],
+        panelIDs: [],
     },
     panel: {
         symbol: { text: '', color: defaultTheme.sidebar_bg_color, img: null },

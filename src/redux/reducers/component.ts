@@ -1,14 +1,39 @@
 import { ReduxStore, ActionTypes, Actions } from '../../types';
 
 const initialState: ReduxStore = {
-    windows: new Map(),
     components: new Map(),
+    panels: new Map(),
+    windows: new Map(),
 };
 
 export default (state = initialState, action: Actions): ReduxStore =>
 {
     switch (action.type)
     {
+        case ActionTypes.ADD_PANEL: {
+            const panel = action.payload.panelData;
+            const windowID = action.payload.windowID;
+
+            return {
+                ...state,
+                panels: {
+                    ...state.panels,
+                    [panel.id]: {
+                        ...panel,
+                    },
+                },
+                windows: {
+                    ...state.windows,
+                    [windowID]: {
+                        ...state.windows[windowID],
+                        panelIDs: [
+                            ...state.windows[windowID].panelIDs,
+                            panel.id,
+                        ],
+                    },
+                },
+            };
+        }
         case ActionTypes.ADD_WINDOW: {
             const window = action.payload.windowData;
 

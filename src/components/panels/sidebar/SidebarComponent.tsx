@@ -62,7 +62,7 @@ export const SidebarComponent: FC<SidebarData> = (props: SidebarData) =>
                                 text={icon.text}
                                 textColour={icon.textColour}
                                 bgColour={icon.bgColour}
-                                size={props.size}
+                                size={iconSize}
                                 img={icon.img}
                                 imgAlt={icon.imgAlt}
                                 onClick={expanded ? icon.onClick : onToggle}

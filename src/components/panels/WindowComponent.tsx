@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import { SidebarComponent } from './sidebar';
 import ContentPanelComponent from './ContentPanelComponent';
 import { connect, ConnectedProps } from 'react-redux';
-import { getWindowSidebarIcons, toggleWindowExpanded } from '../../redux';
+import { getWindowSidebarIcons, toggleWindowExpanded, getPanelsByIds } from '../../redux';
 
 const mapStateToProps = (store: ApplicationStore) =>
     ({ store });
-const mapDispatch = { toggleWindowExpanded, getWindowSidebarIcons };
+const mapDispatch = { toggleWindowExpanded, getWindowSidebarIcons, getPanelsByIds };
 const connector = connect(mapStateToProps, mapDispatch);
 
 type WindowReduxProps = ConnectedProps<typeof connector>;
@@ -44,7 +44,8 @@ const WindowComponent: FC<WindowComponentProps> = (props: WindowComponentProps) 
 {
     const data = { ...defaultAttributes.window, ...props.data };
     // eslint-disable-next-line max-len
-    const { id, size, expanded, position, sidebarSize, panelSize, showSidebar, sidebarIconSize, sidebarShowLogo, activePanelIndex, panelData } = data;
+    const { id, size, expanded, position, sidebarSize, panelSize, showSidebar, sidebarIconSize, sidebarShowLogo, activePanelIndex, panelIDs } = data;
+    const panelData = props.getPanelsByIds(props.store, panelIDs).payload;
     const activePanel = panelData[activePanelIndex];
     const showIconBar = (panelData.length > 1) || showSidebar || sidebarShowLogo || expanded;
     const icons: any[] = props.getWindowSidebarIcons(props.store, id).payload || [];

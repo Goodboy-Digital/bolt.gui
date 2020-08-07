@@ -1,4 +1,4 @@
-import { ComponentPair, WindowData } from '.';
+import { ComponentPair, PanelData, WindowData } from '.';
 
 export interface ApplicationStore
 {
@@ -7,6 +7,7 @@ export interface ApplicationStore
 
 export interface ReduxStore
 {
-    windows: Map<string, WindowData>;
     components: Map<string, ComponentPair>;
+    panels: Map<string, PanelData>;
+    windows: Map<string, WindowData>;
 }
