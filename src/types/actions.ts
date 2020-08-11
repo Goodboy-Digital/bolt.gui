@@ -5,6 +5,7 @@ export enum ActionTypes
     // Component actions
     ADD_COMPONENT = 'ADD_COMPONENT',
     DELETE_COMPONENT = 'DELETE_COMPONENT',
+    UPDATE_COMPONENT = 'UPDATE_COMPONENT',
 
     // Panel Actions
     ADD_PANEL = 'ADD_PANEL',
@@ -21,11 +22,17 @@ export enum ActionTypes
     // SELECTORS
     GET_WINDOW_EXPANDED = 'GET_WINDOW_EXPANDED',
     GET_SIDEBAR_ICONS = 'GET_SIDEBAR_ICONS',
+    GET_COMPONENT_BY_ID = 'GET_COMPONENT_BY_ID',
     GET_COMPONENTS_BY_IDS = 'GET_COMPONENTS_BY_IDS',
     GET_PANELS_BY_IDS = 'GET_PANELS_BY_IDS',
 }
 
-export type Actions = AddComponentAction | AddPanelAction | ExpandWindowAction | AddWindowAction | SetStoreAction;
+export type Actions = AddComponentAction
+| UpdateComponentAction
+| AddPanelAction
+| ExpandWindowAction
+| AddWindowAction
+| SetStoreAction;
 
 export interface AddComponentAction
 {
@@ -36,6 +43,13 @@ export interface AddComponentAction
     };
 }
 
+export interface UpdateComponentAction
+{
+    type: ActionTypes.UPDATE_COMPONENT;
+    payload: {
+        componentData: ComponentPair;
+    };
+}
 export interface AddPanelAction
 {
     type: ActionTypes.ADD_PANEL;

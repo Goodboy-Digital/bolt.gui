@@ -1,4 +1,4 @@
-import { ReduxStore, AddComponentAction } from '../../types';
+import { ReduxStore, AddComponentAction, UpdateComponentAction } from '../../types';
 
 export function addComponentReducer(store: ReduxStore, action: AddComponentAction): ReduxStore
 {
@@ -21,6 +21,21 @@ export function addComponentReducer(store: ReduxStore, action: AddComponentActio
                     ...store.panels[panelID].childIDs,
                     component.id,
                 ],
+            },
+        },
+    };
+}
+
+export function updateComponentReducer(store: ReduxStore, action: UpdateComponentAction): ReduxStore
+{
+    const component = action.payload.componentData;
+
+    return {
+        ...store,
+        components: {
+            ...store.components,
+            [component.id]: {
+                ...component,
             },
         },
     };

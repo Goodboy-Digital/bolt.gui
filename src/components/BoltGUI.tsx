@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { addWindow, addPanel, addComponent, getWindows, toggleWindowExpanded, setStore } from '../redux';
+import { addWindow, addPanel, addComponent, updateComponent, getWindows, toggleWindowExpanded, setStore } from '../redux';
 import { ApplicationStore, WindowData, PanelData, ComponentPair } from '../types';
 import styled from 'styled-components';
 import WindowComponent from './panels/WindowComponent';
@@ -12,7 +12,7 @@ const mapStateToProps = (store: ApplicationStore) =>
 
     return { windows, store };
 };
-const mapDispatch = { addWindow, addPanel, setStore, addComponent, toggleWindowExpanded };
+const mapDispatch = { addWindow, addPanel, setStore, addComponent, updateComponent, toggleWindowExpanded };
 const connector = connect(mapStateToProps, mapDispatch);
 
 type BoltGUIReduxProps = ConnectedProps<typeof connector>;
@@ -97,7 +97,17 @@ class BoltGUI extends Component<BoltProps>
             component: ButtonInputComponent,
             inputData: {
                 buttonText: 'click me',
-                callOnClick: (e: any) => { console.log(e); },
+                callOnClick: () =>
+                {
+                    this.updateComponent({
+                        id: 'button1',
+                        component: ButtonInputComponent,
+                        inputData: {
+                            buttonText: 'ive been updated',
+                            callOnClick: (e: any) => { console.log(e); },
+                        },
+                    });
+                },
             },
         }, 'panel1');
     }
@@ -134,6 +144,11 @@ class BoltGUI extends Component<BoltProps>
     public addComponent(componentData: ComponentPair, panelID: string): void
     {
         this.props.addComponent(componentData, panelID);
+    }
+
+    public updateComponent(componentData: ComponentPair): void
+    {
+        this.props.updateComponent(componentData);
     }
 
     public addPanel(panelData: PanelData, windowID: string): void

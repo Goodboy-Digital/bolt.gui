@@ -9,3 +9,11 @@ SelectorReturn<ActionTypes.GET_COMPONENTS_BY_IDS, ComponentPair[]> =>
 
     return { type: ActionTypes.GET_COMPONENTS_BY_IDS, payload: components };
 };
+
+export const getComponentById = (store: ApplicationStore, componentId: string):
+SelectorReturn<ActionTypes.GET_COMPONENT_BY_ID, ComponentPair> =>
+{
+    const component: ComponentPair = store.componentReducers.components[componentId];
+
+    return { type: ActionTypes.GET_COMPONENT_BY_ID, payload: component };
+};
