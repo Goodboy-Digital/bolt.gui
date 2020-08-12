@@ -4,7 +4,7 @@ export enum ActionTypes
     {
     // Component actions
     ADD_COMPONENT = 'ADD_COMPONENT',
-    DELETE_COMPONENT = 'DELETE_COMPONENT',
+    REMOVE_COMPONENT = 'REMOVE_COMPONENT',
     UPDATE_COMPONENT = 'UPDATE_COMPONENT',
 
     // Panel Actions
@@ -13,7 +13,7 @@ export enum ActionTypes
 
     // Window actions
     ADD_WINDOW = 'ADD_WINDOW',
-    DELETE_WINDOW = 'DELETE_WINDOW',
+    REMOVE_WINDOW = 'REMOVE_WINDOW',
     WINDOW_TOGGLE_EXPAND = 'WINDOW_TOGGLE_EXPAND',
 
     // Store actions
@@ -29,6 +29,7 @@ export enum ActionTypes
 
 export type Actions = AddComponentAction
 | UpdateComponentAction
+| RemoveComponentAction
 | AddPanelAction
 | ExpandWindowAction
 | AddWindowAction
@@ -48,6 +49,15 @@ export interface UpdateComponentAction
     type: ActionTypes.UPDATE_COMPONENT;
     payload: {
         componentData: ComponentPair;
+    };
+}
+
+export interface RemoveComponentAction
+{
+    type: ActionTypes.REMOVE_COMPONENT;
+    payload: {
+        id: string;
+        parentID: string;
     };
 }
 export interface AddPanelAction

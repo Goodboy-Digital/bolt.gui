@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { addWindow, addPanel, addComponent, updateComponent, getWindows, toggleWindowExpanded, setStore } from '../redux';
+import {
+    addWindow,
+    addPanel,
+    addComponent,
+    removeComponent,
+    updateComponent,
+    getWindows,
+    toggleWindowExpanded,
+    setStore,
+} from '../redux';
 import { ApplicationStore, WindowData, PanelData, ComponentPair } from '../types';
 import styled from 'styled-components';
 import WindowComponent from './panels/WindowComponent';
@@ -12,7 +21,15 @@ const mapStateToProps = (store: ApplicationStore) =>
 
     return { windows, store };
 };
-const mapDispatch = { addWindow, addPanel, setStore, addComponent, updateComponent, toggleWindowExpanded };
+const mapDispatch = {
+    addWindow,
+    addPanel,
+    setStore,
+    addComponent,
+    updateComponent,
+    removeComponent,
+    toggleWindowExpanded,
+};
 const connector = connect(mapStateToProps, mapDispatch);
 
 type BoltGUIReduxProps = ConnectedProps<typeof connector>;
@@ -104,7 +121,10 @@ class BoltGUI extends Component<BoltProps>
                         component: ButtonInputComponent,
                         inputData: {
                             buttonText: 'ive been updated',
-                            callOnClick: (e: any) => { console.log(e); },
+                            callOnClick: () =>
+                            {
+                                this.props.removeComponent('button1', 'panel1');
+                            },
                         },
                     });
                 },
@@ -149,6 +169,11 @@ class BoltGUI extends Component<BoltProps>
     public updateComponent(componentData: ComponentPair): void
     {
         this.props.updateComponent(componentData);
+    }
+
+    public removeComponent(id: string, parentID: string): void
+    {
+        this.props.removeComponent(id, parentID);
     }
 
     public addPanel(panelData: PanelData, windowID: string): void

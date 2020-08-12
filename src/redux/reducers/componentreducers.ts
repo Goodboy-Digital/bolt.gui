@@ -1,4 +1,5 @@
-import { ReduxStore, AddComponentAction, UpdateComponentAction } from '../../types';
+import { ReduxStore, AddComponentAction, UpdateComponentAction,
+    RemoveComponentAction, ActionTypes, ComponentPair } from '../../types';
 
 export function addComponentReducer(store: ReduxStore, action: AddComponentAction): ReduxStore
 {
@@ -39,4 +40,74 @@ export function updateComponentReducer(store: ReduxStore, action: UpdateComponen
             },
         },
     };
+}
+
+export function removeComponentReducer(store: ReduxStore, action: RemoveComponentAction): ReduxStore
+{
+    let returnVal = store;
+    const { id, parentID } = action.payload;
+    const components = store.components as Map<string, ComponentPair>;
+    const panels = store.panels;
+    const compToBeRemoved = components[id];
+
+    // recurse through components list to find component and remove children
+    if (compToBeRemoved.inputData.childIDs?.length > 0)
+    {
+        compToBeRemoved.inputData.childIDs.forEach((child: string) =>
+        {
+            returnVal = removeComponentReducer(store,
+                { type: ActionTypes.REMOVE_COMPONENT, payload: { id: child, parentID: id } });
+        });
+    }
+    delete store.components[id];
+
+    returnVal = { ...returnVal, components };
+
+    if (panels[parentID])
+    {
+        // if parent is panel, splice id out of parents children
+        const parent = panels[parentID];
+        const index = parent.childIDs.indexOf(id);
+
+        parent.childIDs.splice(index, 1);
+
+        returnVal = {
+            ...returnVal,
+            panels: {
+                ...panels,
+                [parentID]: {
+                    ...parent,
+                },
+            },
+        };
+    }
+    else if (components[parentID])
+    {
+        // if parent is component, splice the id from the inputData children
+        const parent = components[parentID];
+
+        // early return
+        if (!parent.inputData.childIDs)
+        {
+            console.error(`childID's not present on ${parentID}`, parent);
+
+            return returnVal;
+        }
+
+        const index = parent.inputData.childIDs.indexOf(id);
+
+        parent.inputData.childIDs.splice(index, 1);
+
+        returnVal = {
+            ...returnVal,
+            components: {
+                ...components,
+                [parentID]: {
+                    ...parent,
+                },
+            },
+        };
+    }
+
+    return returnVal;
 }
