@@ -1,5 +1,5 @@
 import { ReduxStore, AddComponentAction, UpdateComponentAction,
-    RemoveComponentAction, ActionTypes, ComponentPair } from '../../types';
+    RemoveComponentAction, ActionTypes } from '../../types';
 
 export function addComponentReducer(store: ReduxStore, action: AddComponentAction): ReduxStore
 {
@@ -46,8 +46,7 @@ export function removeComponentReducer(store: ReduxStore, action: RemoveComponen
 {
     let returnVal = store;
     const { id, parentID } = action.payload;
-    const components = store.components as Map<string, ComponentPair>;
-    const panels = store.panels;
+    const { components, panels } = store;
     const compToBeRemoved = components[id];
 
     // recurse through components list to find component and remove children
@@ -59,7 +58,7 @@ export function removeComponentReducer(store: ReduxStore, action: RemoveComponen
                 { type: ActionTypes.REMOVE_COMPONENT, payload: { id: child, parentID: id } });
         });
     }
-    delete store.components[id];
+    delete components[id];
 
     returnVal = { ...returnVal, components };
 

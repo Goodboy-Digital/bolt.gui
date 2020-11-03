@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import {
     addWindow,
     addPanel,
+    removePanel,
     addComponent,
     removeComponent,
     updateComponent,
@@ -24,6 +25,7 @@ const mapStateToProps = (store: ApplicationStore) =>
 const mapDispatch = {
     addWindow,
     addPanel,
+    removePanel,
     setStore,
     addComponent,
     updateComponent,
@@ -130,6 +132,18 @@ class BoltGUI extends Component<BoltProps>
                 },
             },
         }, 'panel1');
+
+        this.addComponent({
+            id: 'button2',
+            component: ButtonInputComponent,
+            inputData: {
+                buttonText: 'remove panel',
+                callOnClick: () =>
+                {
+                    this.removePanel('panel1', 'window1');
+                },
+            },
+        }, 'panel1');
     }
 
     // public componentWillMount()
@@ -179,6 +193,11 @@ class BoltGUI extends Component<BoltProps>
     public addPanel(panelData: PanelData, windowID: string): void
     {
         this.props.addPanel(panelData, windowID);
+    }
+
+    public removePanel(id:string, parentID: string): void
+    {
+        this.props.removePanel(id, parentID);
     }
 
     public addWindow(windowData: WindowData): void

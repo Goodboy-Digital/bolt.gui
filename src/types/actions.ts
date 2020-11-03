@@ -31,6 +31,7 @@ export type Actions = AddComponentAction
 | UpdateComponentAction
 | RemoveComponentAction
 | AddPanelAction
+| RemovePanelAction
 | ExpandWindowAction
 | AddWindowAction
 | SetStoreAction;
@@ -66,6 +67,15 @@ export interface AddPanelAction
     payload: {
         panelData: PanelData;
         windowID: string;
+    };
+}
+
+export interface RemovePanelAction
+{
+    type: ActionTypes.REMOVE_PANEL;
+    payload: {
+        id: string;
+        parentID: string;
     };
 }
 export interface ExpandWindowAction
