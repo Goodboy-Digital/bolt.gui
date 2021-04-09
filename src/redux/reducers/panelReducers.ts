@@ -1,0 +1,68 @@
+import { ReduxStore, AddPanelAction, RemovePanelAction, ActionTypes  } from '../../types';
+import { removeComponentReducer } from './componentReducers';
+
+export function addPanelReducer(store: ReduxStore, action: AddPanelAction): ReduxStore
+{
+    const panel = action.payload.panelData;
+    const windowID = action.payload.windowID;
+
+    return {
+        ...store,
+        panels: {
+            ...store.panels,
+            [panel.id]: {
+                ...panel,
+            },
+        },
+        windows: {
+            ...store.windows,
+            [windowID]: {
+                ...store.windows[windowID],
+                panelIDs: [
+                    ...store.windows[windowID].panelIDs,
+                    panel.id,
+                ],
+            },
+        },
+    };
+}
+
+export function removePanelReducer(store: ReduxStore, action: RemovePanelAction): ReduxStore
+{
+    let returnVal = store;
+    const { id, parentID } = action.payload;
+    const { windows, panels } = store;
+    const toBeRemoved = panels[id];
+
+    // remove child components
+    toBeRemoved.childIDs.forEach((child: string) =>
+    {
+        returnVal = removeComponentReducer(store,
+            { type: ActionTypes.REMOVE_COMPONENT, payload: { id: child, parentID: id } });
+    });
+
+    // delete panel
+    delete panels[id];
+    returnVal = { ...returnVal, panels };
+
+    // remove from parent children
+    if (windows[parentID])
+    {
+        const parent = windows[parentID];
+        const index = parent.panelIDs.indexOf(id);
+
+        parent.panelIDs.splice(index, 1);
+
+        returnVal = {
+            ...returnVal,
+            windows: {
+                ...windows,
+                [parentID]: {
+                    ...parent,
+                },
+            },
+        };
+    }
+
+    return returnVal;
+}
