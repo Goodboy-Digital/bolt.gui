@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import { SidebarData, SidebarIconData } from '../../../types';
 import { SidebarIconComponent } from './SidebarIconComponent';
 import { defaultAttributes } from '../../Themeable';
-import goodboyLogo from '../../../assets/goodboy-logo.png';
 import styled from 'styled-components';
 
 interface SidebarColumnContainerProps
@@ -38,21 +37,21 @@ const SidebarsContainer = styled.div<SidebarContainerProps>`
 
 export const SidebarComponent: FC<SidebarData> = (props: SidebarData) =>
 {
-    const { expanded, icons, size, iconSize, showLogo, onToggle } = props;
+    const { expanded, icons, size, iconSize, logo, logoAlt, onToggle } = props;
 
     return (
         <SidebarColumnContainer width={size.width}>
             {
-                props.showLogo && <SidebarIconComponent
-                    text={'Bolt'}
-                    img={goodboyLogo}
+                logo && <SidebarIconComponent
+                    text={logoAlt || 'Bolt'}
+                    img={logo}
                     onClick={onToggle}
                     size={iconSize}
                     active={expanded}
                 />
             }
             <SidebarsContainer
-                showLogo={showLogo}
+                showLogo={!!(logo)}
                 isExpanded={expanded}
             >
                 {
@@ -65,7 +64,7 @@ export const SidebarComponent: FC<SidebarData> = (props: SidebarData) =>
                                 size={iconSize}
                                 img={icon.img}
                                 imgAlt={icon.imgAlt}
-                                onClick={expanded ? icon.onClick : onToggle}
+                                onClick={() => { icon.onClick(); if (!expanded) onToggle(); }}
                                 active={icon.active}
                                 key={index}
                             />

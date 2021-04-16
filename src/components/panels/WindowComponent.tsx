@@ -44,10 +44,10 @@ const WindowComponent: FC<WindowComponentProps> = (props: WindowComponentProps) 
 {
     const data = { ...defaultAttributes.window, ...props.data };
     // eslint-disable-next-line max-len
-    const { id, size, expanded, position, sidebarSize, panelSize, showSidebar, sidebarIconSize, sidebarShowLogo, activePanelIndex, panelIDs } = data;
+    const { id, size, expanded, position, sidebarSize, panelSize, showSidebar, sidebarIconSize, sideBarLogoImg, sideBarLogoImgAlt, activePanelIndex, panelIDs } = data;
     const panelData = props.getPanelsByIds(props.store, panelIDs).payload;
     const activePanel = panelData[activePanelIndex];
-    const showIconBar = (panelData.length > 1) || showSidebar || sidebarShowLogo || expanded;
+    const showIconBar = (panelData.length > 1) || showSidebar || sideBarLogoImg || expanded;
     const icons: any[] = props.getWindowSidebarIcons(props.store, id).payload || [];
 
     return (
@@ -59,7 +59,8 @@ const WindowComponent: FC<WindowComponentProps> = (props: WindowComponentProps) 
                 showIconBar && <SidebarComponent
                     showSidebar={showSidebar}
                     size={sidebarSize}
-                    showLogo={sidebarShowLogo}
+                    logo={sideBarLogoImg}
+                    logoAlt={sideBarLogoImgAlt || 'Bolt'}
                     icons={icons}
                     iconSize={sidebarIconSize}
                     onToggle={() => props.toggleWindowExpanded(id)}

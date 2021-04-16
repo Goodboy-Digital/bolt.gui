@@ -9,6 +9,8 @@ export enum ActionTypes
 
     // Panel Actions
     ADD_PANEL = 'ADD_PANEL',
+    SET_ACTIVE_PANEL = 'SET_ACTIVE_PANEL',
+    CLEAR_PANEL = 'CLEAR_PANEL',
     REMOVE_PANEL = 'REMOVE_PANEL',
 
     // Window actions
@@ -31,6 +33,8 @@ export type Actions = AddComponentAction
 | UpdateComponentAction
 | RemoveComponentAction
 | AddPanelAction
+| ClearPanelAction
+| SetActivePanelAction
 | RemovePanelAction
 | ExpandWindowAction
 | AddWindowAction
@@ -70,6 +74,21 @@ export interface AddPanelAction
     };
 }
 
+export interface ClearPanelAction
+{
+    type: ActionTypes.CLEAR_PANEL;
+    payload: {
+        id: string;
+        destroyChildren: boolean;
+    };
+}
+export interface SetActivePanelAction
+{
+    type: ActionTypes.SET_ACTIVE_PANEL;
+    payload: {
+        id: string;
+    };
+}
 export interface RemovePanelAction
 {
     type: ActionTypes.REMOVE_PANEL;

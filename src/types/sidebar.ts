@@ -18,8 +18,9 @@ export interface SidebarData
     showSidebar: boolean;
     size: Size;
     iconSize: Size;
-    showLogo?: boolean;
+    logo?: string;
+    logoAlt?: string;
     icons: SidebarIconData[];
-    onToggle: (id: number) => void;
+    onToggle: () => void;
     expanded: boolean;
 }

@@ -69,17 +69,17 @@ const ElementContainer = styled.div`
 
 const ContentPanelComponent: FunctionComponent<ContentPanelComponentProps> = (props: ContentPanelComponentProps) =>
 {
-    const { toggleWindowExpanded, getComponentsByIds, store, panelData, windowID } = props;
-    const childComponents = getComponentsByIds(store, panelData.childIDs).payload || [];
+    const { toggleWindowExpanded, getComponentsByIds, store, panelData, windowID, panelWidth } = props;
+    const childComponents = getComponentsByIds(store, panelData?.childIDs || []).payload || [];
 
     return (
         <Container
-            panelWidth={props.panelWidth}
+            panelWidth={panelWidth}
         >
             <Header
                 onClick={() => toggleWindowExpanded(windowID)}
             >
-                <TitleText>{props.panelData.title.toUpperCase()}</TitleText>
+                <TitleText>{panelData?.title.toUpperCase() || ''}</TitleText>
             </Header>
             <ElementContainer>
                 {

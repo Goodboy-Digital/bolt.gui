@@ -14,7 +14,7 @@ import {
 import { ApplicationStore, WindowData, PanelData, ComponentPair } from '../types';
 import styled from 'styled-components';
 import WindowComponent from './panels/WindowComponent';
-import { ButtonInputComponent } from '../components';
+// import { ButtonInputComponent } from '../components';
 
 const mapStateToProps = (store: ApplicationStore) =>
 {
@@ -49,111 +49,6 @@ class BoltGUI extends Component<BoltProps>
     {
         super(props);
     }
-
-    public componentDidMount()
-    {
-        this.addWindow({
-            id: 'window1',
-            expanded: true,
-            position: { x: '40px', y: '40px' },
-            sidebarSize: { height: '250px', width: '50px' },
-            panelSize: { height: '250px', width: '250px' },
-            showSidebar: true,
-            activePanelIndex: 0,
-            panelIDs: [],
-        });
-
-        this.addPanel({
-            id: 'panel1',
-            title: 'Test Panel',
-            icon: {
-                text: 'Te',
-                active: true,
-                size: { height: '40px', width: '40px' },
-            },
-            childIDs: [],
-            isActive: true,
-        }, 'window1');
-
-        this.addWindow({
-            id: 'window2',
-            expanded: true,
-            position: { x: '400px', y: '40px' },
-            sidebarSize: { height: '250px', width: '50px' },
-            panelSize: { height: '250px', width: '250px' },
-            showSidebar: true,
-            sidebarShowLogo: false,
-            activePanelIndex: 0,
-            panelIDs: [],
-        });
-
-        this.addPanel({
-            id: 'panel2',
-            title: 'Test Panel',
-            icon: {
-                text: 'Te',
-                active: true,
-                size: { height: '40px', width: '40px' },
-            },
-            childIDs: [],
-            isActive: true,
-        }, 'window2');
-
-        this.addPanel({
-            id: 'panel3',
-            title: 'Another Test Panel',
-            icon: {
-                text: 'p2',
-                active: false,
-                size: { height: '40px', width: '40px' },
-            },
-            childIDs: [],
-            isActive: false,
-        }, 'window2');
-
-        this.addComponent({
-            id: 'button1',
-            component: ButtonInputComponent,
-            inputData: {
-                buttonText: 'click me',
-                callOnClick: () =>
-                {
-                    this.updateComponent({
-                        id: 'button1',
-                        component: ButtonInputComponent,
-                        inputData: {
-                            buttonText: 'ive been updated',
-                            callOnClick: () =>
-                            {
-                                this.props.removeComponent('button1', 'panel1');
-                            },
-                        },
-                    });
-                },
-            },
-        }, 'panel1');
-
-        this.addComponent({
-            id: 'button2',
-            component: ButtonInputComponent,
-            inputData: {
-                buttonText: 'remove panel',
-                callOnClick: () =>
-                {
-                    this.removePanel('panel1', 'window1');
-                },
-            },
-        }, 'panel1');
-    }
-
-    // public componentWillMount()
-    // {
-    // }
-
-    // public componentWillUnmount()
-    // {
-
-    // }
 
     public render(): JSX.Element
     {

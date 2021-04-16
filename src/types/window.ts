@@ -8,7 +8,8 @@ export interface WindowData
     size?: Size;
     sidebarSize?: Size;
     sidebarIconSize?: Size;
-    sidebarShowLogo?: boolean;
+    sideBarLogoImg?: string;
+    sideBarLogoImgAlt?: string;
     showSidebar?: boolean;
     panelSize?: Size;
     activePanelIndex: number;

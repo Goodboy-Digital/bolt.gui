@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { ReduxStore, ActionTypes, Actions } from '../../types';
 import { addComponentReducer, updateComponentReducer, removeComponentReducer } from './componentReducers';
-import { addPanelReducer, removePanelReducer } from './panelReducers';
+import { addPanelReducer, clearPanelReducer, removePanelReducer, setActivePanelReducer } from './panelReducers';
 import { addWindowReducer, windowToggleExpandReducer } from './windowReducers';
 import { setStoreReducer } from './storeReducers';
 
@@ -19,6 +19,8 @@ const componentReducers = (store = initialStore, action: Actions): ReduxStore =>
         case ActionTypes.UPDATE_COMPONENT: return updateComponentReducer(store, action);
         case ActionTypes.REMOVE_COMPONENT: return removeComponentReducer(store, action);
         case ActionTypes.ADD_PANEL: return addPanelReducer(store, action);
+        case ActionTypes.CLEAR_PANEL: return clearPanelReducer(store, action);
+        case ActionTypes.SET_ACTIVE_PANEL: return setActivePanelReducer(store, action);
         case ActionTypes.REMOVE_PANEL: return removePanelReducer(store, action);
         case ActionTypes.ADD_WINDOW: return addWindowReducer(store, action);
         case ActionTypes.WINDOW_TOGGLE_EXPAND: return windowToggleExpandReducer(store, action);

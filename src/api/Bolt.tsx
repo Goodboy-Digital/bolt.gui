@@ -1,26 +1,32 @@
-// import { BoltGUI } from '../components/BoltGUI';
 import {
     InputBindingConstructor,
     NumberBinding,
-    // PanelController,
-    // WindowControllerOptions,
 } from './controllers';
 
-// import { PanelControllerOptions } from './controllers/windows/PanelController';
-// import React from 'react';
-// import { WindowController } from './controllers/windows/WindowController';
-// import { render } from 'react-dom';
+import React from 'react';
+import { render } from 'react-dom';
+import BoltGUI from '../components/BoltGUI';
+import { ProviderWrapperComponent } from '../components/ProviderWrapperComponent';
+import { PanelData, WindowData } from '../types';
+import store from '../redux/store';
+import {
+    addPanel,
+    clearPanel,
+    setActivePanel,
+    addWindow,
+} from '../redux';
+import { defaultAttributes } from '../components/Themeable';
 
 export class BoltClass
 {
-    // protected _panels: PanelController[] = [];
-    // protected _defaultWindow: WindowController;
-    // protected _windows: WindowController[] = [];
     protected static _bindingTests: InputBindingConstructor[];
+    protected _defaultWindow: WindowData;
 
-    constructor()
+    constructor(options: Partial<WindowData> = {})
     {
-        // this._defaultWindow = this.createWindow();
+        const data = { ...defaultAttributes.window, ...options };
+
+        this._defaultWindow = this.createWindow(data);
 
         BoltClass._bindingTests = [];
         this.addTest(NumberBinding);
@@ -37,61 +43,44 @@ export class BoltClass
             document.body.appendChild(element);
         }
 
-        this._update();
+        render(
+            <ProviderWrapperComponent>
+                <BoltGUI/>
+            </ProviderWrapperComponent>
+            , element);
     }
-
-    private _update(): void
-    {
-        // let updateDisplay = false;
-
-        // for (let i = 0; i < this._panels.length; i++)
-        // {
-        //     const panel = this._panels[i];
-
-        //     if (panel.dirty)
-        //     {
-        //         // updateDisplay = true;
-        //         panel.dirty = false;
-        //     }
-        // }
-
-        // updateDisplay && this._updateGUI();
-        requestAnimationFrame(this._update.bind(this));
-    }
-
-    // THIS MAY NO LONGER BE NEEDED
-    // private _updateGUI(): void
-    // {
-    //     // need to gather all of the windows
-    //     const data: ViewData[] = [];
-
-    //     this._windows.forEach((window) =>
-    //     {
-    //         if (window.children.length === 0) return;
-
-    //         data.push(window._getData());
-    //     });
-
-    //     const element = document.getElementById('editor-holder');
-
-    //     if (!element) return;
-
-    //     render(<BoltGUI viewData={data} />, element);
-    // }
 
     /**
      * Creates a new panel and adds it to a window
      * @param window - window to add the panel too
      * This will default to the default window created by Bolt
      */
-    // public createPanel(window: WindowController = this._defaultWindow, options?: PanelControllerOptions): PanelController
-    // {
-    //     const panel = new PanelController({ ...options, parent: window });
+    public createPanel(options?: PanelData, windowID: string = this._defaultWindow.id): PanelData
+    {
+        store.dispatch(addPanel(options, windowID));
 
-    //     this._panels.push(panel);
+        return options;
+    }
 
-    //     return panel;
-    // }
+    /**
+     * Creates a new panel and adds it to a window
+     * @param window - window to add the panel too
+     * This will default to the default window created by Bolt
+     */
+    public clearPanel(id: string, destroyChildren: boolean): void
+    {
+        store.dispatch(clearPanel(id, destroyChildren));
+    }
+
+    /**
+     * Creates a new panel and adds it to a window
+     * @param window - window to add the panel too
+     * This will default to the default window created by Bolt
+     */
+    public setActivePanel(id: string): void
+    {
+        store.dispatch(setActivePanel(id));
+    }
 
     // TODO: implement an addPanel() to allow for a panel to be added back after being removed
 
@@ -166,14 +155,17 @@ export class BoltClass
      * Creates a new window in which you can add panels too.
      * @param options - options for the window
      */
-    // public createWindow(options?: WindowControllerOptions): WindowController
-    // {
-    //     const window = new WindowController(options);
+    public createWindow(options: WindowData): WindowData
+    {
+        store.dispatch(addWindow(options));
 
-    //     this._windows.push(window);
+        return options;
+    }
 
-    //     return window;
-    // }
+    /**
+     * returns default window data
+     */
+    public getDefaultWindowData(): WindowData { return this._defaultWindow; }
 
     /**
      * Refreshes the binding for each input

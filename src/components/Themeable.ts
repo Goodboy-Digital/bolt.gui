@@ -27,7 +27,6 @@ export const defaultAttributes: DefaultAttributes = {
         showSidebar: true,
         sidebarSize: { width: '48px', height: '272px' },
         sidebarIconSize: { width: '48px', height: '48px' },
-        sidebarShowLogo: true,
         activePanelIndex: 0,
         panelSize: { width: 'auto', height: '48px' },
         panelIDs: [],
