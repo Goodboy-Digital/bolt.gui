@@ -7,15 +7,19 @@ import React from 'react';
 import { render } from 'react-dom';
 import BoltGUI from '../components/BoltGUI';
 import { ProviderWrapperComponent } from '../components/ProviderWrapperComponent';
-import { PanelData, WindowData } from '../types';
+import { ComponentPair, PanelData, WindowData } from '../types';
 import store from '../redux/store';
 import {
     addPanel,
     clearPanel,
     setActivePanel,
     addWindow,
+    addComponent,
+    removeComponent,
+    updateComponent,
 } from '../redux';
 import { defaultAttributes } from '../components/Themeable';
+import { ButtonInputComponent, Label } from '..';
 
 export class BoltClass
 {
@@ -160,6 +164,56 @@ export class BoltClass
         store.dispatch(addWindow(options));
 
         return options;
+    }
+
+    /**
+     * Creates a new component
+     * @param options - options for the window
+     */
+    public createComponent(type: string, id: string, panelId: string, inputData: any): any
+    {
+        switch (type)
+        {
+            case 'label': {
+                store.dispatch(addComponent({ id, component: Label, inputData }, panelId));
+                break;
+            }
+            case 'button': {
+                store.dispatch(addComponent({ id, component: ButtonInputComponent, inputData }, panelId));
+                break;
+            }
+            case 'xyr': {
+                break;
+            }
+            case 'custom': {
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        // store.dispatch(addWindow(options));
+
+        return inputData;
+    }
+
+    /**
+     * updates component
+     */
+    public updateComponent(componentData: ComponentPair<any>): ComponentPair<any>
+    {
+        store.dispatch(updateComponent(componentData));
+
+        return componentData;
+    }
+
+    /**
+     * removes component
+     */
+    public removeComponent(id: string, parentId: string): void
+    {
+        store.dispatch(removeComponent(id, parentId));
     }
 
     /**

@@ -52,9 +52,6 @@ class BoltGUI extends Component<BoltProps>
 
     public render(): JSX.Element
     {
-        console.log(this.props);
-
-        // const windows = Array.from(this.props.windows);
         const windows: string[] = Object.keys(this.props.windows);
 
         return (
