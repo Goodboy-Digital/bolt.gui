@@ -1,10 +1,10 @@
 import { ComponentPair, AddComponentAction, UpdateComponentAction, RemoveComponentAction, ActionTypes } from '../../types';
 
-export const addComponent = (componentData: ComponentPair, panelID: string): AddComponentAction => ({
+export const addComponent = (componentData: ComponentPair, parentID?: string): AddComponentAction => ({
     type: ActionTypes.ADD_COMPONENT,
     payload: {
         componentData,
-        panelID,
+        parentID,
     },
 });
 

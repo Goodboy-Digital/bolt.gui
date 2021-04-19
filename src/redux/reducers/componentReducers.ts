@@ -4,27 +4,65 @@ import { ReduxStore, AddComponentAction, UpdateComponentAction,
 export function addComponentReducer(store: ReduxStore, action: AddComponentAction): ReduxStore
 {
     const component = action.payload.componentData;
-    const panelID = action.payload.panelID;
+    const parentID = action.payload.parentID;
 
-    return {
-        ...store,
-        components: {
-            ...store.components,
-            [component.id]: {
-                ...component,
+    let panelID: string;
+
+    if (store.panels[parentID]) panelID = parentID;
+
+    if (panelID)
+    {
+        return {
+            ...store,
+            components: {
+                ...store.components,
+                [component.id]: {
+                    ...component,
+                },
             },
-        },
-        panels: {
-            ...store.panels,
-            [panelID]: {
-                ...store.panels[panelID],
-                childIDs: [
-                    ...store.panels[panelID].childIDs,
-                    component.id,
-                ],
+            panels: {
+                ...store.panels,
+                [panelID]: {
+                    ...store.panels[panelID],
+                    childIDs: [
+                        ...store.panels[panelID].childIDs,
+                        component.id,
+                    ],
+                },
             },
-        },
-    };
+        };
+    }
+
+    let folderID: string;
+
+    if (store.components[parentID]) folderID = parentID;
+
+    if (folderID)
+    {
+        return {
+            ...store,
+            components: {
+                ...store.components,
+                [component.id]: {
+                    ...component,
+                },
+                [folderID]: {
+                    ...store.components[folderID],
+                    inputData: {
+                        ...store.components[folderID].inputData,
+                        childIDs: [
+                            ...store.components[folderID].inputData.childIDs,
+                            component.id,
+                        ],
+                    },
+                },
+            },
+        };
+    }
+
+    console.error(`Could not add ${component.id} - parent not found`);
+
+    return store;
 }
 
 export function updateComponentReducer(store: ReduxStore, action: UpdateComponentAction): ReduxStore

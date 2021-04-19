@@ -67,9 +67,9 @@ class BoltGUI extends Component<BoltProps>
         );
     }
 
-    public addComponent(componentData: ComponentPair, panelID: string): void
+    public addComponent(componentData: ComponentPair, parentID: string): void
     {
-        this.props.addComponent(componentData, panelID);
+        this.props.addComponent(componentData, parentID);
     }
 
     public updateComponent(componentData: ComponentPair): void

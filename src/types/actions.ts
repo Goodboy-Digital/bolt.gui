@@ -45,7 +45,7 @@ export interface AddComponentAction
     type: ActionTypes.ADD_COMPONENT;
     payload: {
         componentData: ComponentPair;
-        panelID: string;
+        parentID?: string;
     };
 }
 

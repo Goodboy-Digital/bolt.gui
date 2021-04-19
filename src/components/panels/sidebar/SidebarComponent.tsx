@@ -64,7 +64,7 @@ export const SidebarComponent: FC<SidebarData> = (props: SidebarData) =>
                                 size={iconSize}
                                 img={icon.img}
                                 imgAlt={icon.imgAlt}
-                                onClick={() => { icon.onClick(); if (!expanded) onToggle(); }}
+                                onClick={() => { icon.onClick && icon.onClick(); if (!expanded) onToggle(); }}
                                 active={icon.active}
                                 key={index}
                             />
