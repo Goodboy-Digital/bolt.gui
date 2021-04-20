@@ -11,10 +11,9 @@ import {
     toggleWindowExpanded,
     setStore,
 } from '../redux';
-import { ApplicationStore, WindowData, PanelData, ComponentPair } from '../types';
+import { ApplicationStore } from '../types';
 import styled from 'styled-components';
 import WindowComponent from './panels/WindowComponent';
-// import { ButtonInputComponent } from '../components';
 
 const mapStateToProps = (store: ApplicationStore) =>
 {
@@ -66,56 +65,6 @@ class BoltGUI extends Component<BoltProps>
             </BoltContainer>
         );
     }
-
-    public addComponent(componentData: ComponentPair, parentID: string): void
-    {
-        this.props.addComponent(componentData, parentID);
-    }
-
-    public updateComponent(componentData: ComponentPair): void
-    {
-        this.props.updateComponent(componentData);
-    }
-
-    public removeComponent(id: string, parentID: string): void
-    {
-        this.props.removeComponent(id, parentID);
-    }
-
-    public addPanel(panelData: PanelData, windowID: string): void
-    {
-        this.props.addPanel(panelData, windowID);
-    }
-
-    public removePanel(id:string, parentID: string): void
-    {
-        this.props.removePanel(id, parentID);
-    }
-
-    public addWindow(windowData: WindowData): void
-    {
-        this.props.addWindow(windowData);
-    }
-
-    public toggleExpanded(id: string): void
-    {
-        this.props.toggleWindowExpanded(id);
-    }
-
-    public setStore(newStore: ApplicationStore): void
-    {
-        this.props.setStore(newStore);
-    }
-
-    public getStore(): ApplicationStore
-    {
-        return this.props.store;
-    }
-
-    // public setActivePanel(newState: number): void
-    // {
-    //     this.setState({ activePanel: newState });
-    // }
 }
 
 export default connector(BoltGUI);
