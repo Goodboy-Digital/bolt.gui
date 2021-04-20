@@ -193,8 +193,6 @@ export class BoltClass
             }
         }
 
-        // store.dispatch(addWindow(options));
-
         return inputData;
     }
 
