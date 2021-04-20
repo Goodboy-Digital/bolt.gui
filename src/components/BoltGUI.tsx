@@ -1,106 +1,70 @@
-import React, { Component, FunctionComponent } from 'react';
-import { WindowContainerData } from './panels/WindowContainer';
-import { render } from 'react-dom';
+import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import {
+    addWindow,
+    addPanel,
+    removePanel,
+    addComponent,
+    removeComponent,
+    updateComponent,
+    getWindows,
+    toggleWindowExpanded,
+    setStore,
+} from '../redux';
+import { ApplicationStore } from '../types';
 import styled from 'styled-components';
+import WindowComponent from './panels/WindowComponent';
 
-export interface ViewData 
+const mapStateToProps = (store: ApplicationStore) =>
 {
-    component: FunctionComponent<WindowContainerData>;
-    props: WindowContainerData;
-}
-export interface BoltProps
+    const windows = getWindows(store);
+
+    return { windows, store };
+};
+const mapDispatch = {
+    addWindow,
+    addPanel,
+    removePanel,
+    setStore,
+    addComponent,
+    updateComponent,
+    removeComponent,
+    toggleWindowExpanded,
+};
+const connector = connect(mapStateToProps, mapDispatch);
+
+type BoltGUIReduxProps = ConnectedProps<typeof connector>;
+
+export interface BoltProps extends BoltGUIReduxProps
 {
     stage?: any; // this will be the reference object for the game if needed
-    viewData?: ViewData[];
-}
-
-export interface BoltState
-{
-    expandedX: boolean;
-    expandedY: boolean;
-    activeTab: number;
 }
 
 const BoltContainer = styled.div``;
 
-export class BoltGUI extends Component<BoltProps, BoltState>
+class BoltGUI extends Component<BoltProps>
 {
-    private views: ViewData[] = [];
-
     constructor(props: BoltProps)
     {
         super(props);
-        this.state = {
-            expandedX: true,
-            expandedY: true,
-            activeTab: 0,
-        };
-
-        this.views = props.viewData || [];
     }
-
-    // public componentWillMount()
-    // {
-    // }
-
-    // public componentWillUnmount()
-    // {
-
-    // }
 
     public render(): JSX.Element
     {
+        const windows: string[] = Object.keys(this.props.windows);
+
         return (
             <BoltContainer>
                 {
-                    this.views.map((view, index) => {
-                        return (
-                            <view.component
-                                key={index}
-                                defaultContainerPosition={view.props.defaultContainerPosition}
-                                defaultContainerHeight={view.props.defaultContainerHeight}
-                                defaultContainerWidth={view.props.defaultContainerWidth}
-                                expandedX={this.state.expandedX}
-                                expandedY={this.state.expandedY}
-                                expandYCallBack={this.toggleExpandedY.bind(this)}
-                                setActiveTabCallBack={this.setActiveTab.bind(this)}
-                                panelData={view.props.panelData}
-                                activeTabIndex={this.state.activeTab}
-                            />
-                        )
-                    })
+                    windows.map((key) =>
+                        (<WindowComponent
+                            key={key}
+                            data={this.props.windows[key]}
+                        />))
                 }
             </BoltContainer>
         );
     }
-
-    public toggleExpandedX(): void
-    {
-        this.setState({ expandedX: !this.state.expandedX });
-    }
-
-    public toggleExpandedY(): void
-    {
-        this.setState({ expandedY: !this.state.expandedY });
-    }
-
-    public setActiveTab(newState: number): void
-    {
-        this.setState({ activeTab: newState });
-    }
-
-    // STATIC MEMBERS --------------------------------------------------
-
-    public static init(): void // (editor: Editor) - this is where we would pass in the game
-    {
-        let element = document.getElementById('editor-holder');
-
-        if (!element)
-        {
-            element = document.createElement('div');
-            element.id = 'editor-holder';
-            document.body.appendChild(element);
-        }
-        render(<BoltGUI/>, element);
-    }
 }
+
+export default connector(BoltGUI);

@@ -2,22 +2,30 @@ import React, { FunctionComponent } from 'react';
 
 import styled from 'styled-components';
 
+export interface TextInputComponentData
+{
+    label?: string;
+    labelColour?: string;
+    labelFontSize?: string;
+    defaultText?: string;
+    inputHeight?: string;
+    inputWidth?: string;
+    inputType?: 'text' | 'password' |'textarea' | 'number';
+    inputBackgroundColour?: string;
+    inputTextColour?: string;
+    inputTextSize?: string;
+    disabled?: boolean;
+    inputValue?: string;
+    step?: number;
+    callOnChange?: (value: any) => any;
+    callOnInputCapture?: (value: any) => any;
+    callOnBlur?: (value: any) => any;
+    callOnSubmit?: (value: any) => any;
+}
+
 export interface TextInputComponentProps
 {
-    inputData: {
-        label?: string;
-        labelColour?: string;
-        labelFontSize?: string;
-        defaultText?: string;
-        inputHeight?: string;
-        inputWidth?: string;
-        inputType?: 'text' | 'password' |'textarea' | 'number';
-        inputBackgroundColour?: string;
-        inputTextColour?: string;
-        inputTextSize?: string;
-        disabled?: boolean;
-        callOnChange?: (value: any) => any;
-    };
+    inputData: TextInputComponentData;
 }
 
 interface InputStyleOptions
@@ -44,7 +52,7 @@ const Container = styled.div`
 
 const TextInput = styled.input<InputStyleOptions>`
     height: ${(props: InputStyleOptions): string => (props.height ? props.height : '18px')};
-    width: ${(props: InputStyleOptions): string => (props.width ? props.width : '95%')};
+    width: ${(props: InputStyleOptions): string => (props.width ? props.width : '98%')};
     border-radius: 5px;
     opacity: 0.92;
     color: ${(props: InputStyleOptions): string => (props.textColour ? props.textColour : 'black')};
@@ -54,7 +62,7 @@ const TextInput = styled.input<InputStyleOptions>`
 
 const TextArea = styled.textarea<InputStyleOptions>`
     min-height: ${(props: InputStyleOptions): string => (props.height ? props.height : '18px')};
-    width: ${(props: InputStyleOptions): string => (props.width ? props.width : '95%')};
+    width: ${(props: InputStyleOptions): string => (props.width ? props.width : '98%')};
     border-radius: 5px;
     resize: vertical;
     overflow: auto;
@@ -86,6 +94,9 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
     }
 
     const onChange = data.callOnChange ? data.callOnChange : () => { /** */ };
+    const onInput = data.callOnInputCapture ? data.callOnInputCapture : () => { /** */ };
+    const onBlur = data.callOnBlur ? data.callOnBlur : () => { /** */ };
+    const onSubmit = data.callOnSubmit ? data.callOnSubmit : () => { /** */ };
 
     return (
         <Container>
@@ -107,7 +118,12 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
                     defaultValue={data.defaultText}
                     height={data.inputHeight}
                     width={data.inputWidth}
+                    value={data.inputValue}
                     onChange={(e) => onChange(e.target.value)}
+                    step={data.step || 1}
+                    onInput={(e) => onInput((e.target as HTMLInputElement).value)}
+                    onBlur={(e) => onBlur((e.target as HTMLInputElement).value)}
+                    onSubmit={(e) => onBlur((e.target as HTMLInputElement).value)}
                 />)}
             {
                 (data.inputType && data.inputType === 'textarea') && <TextArea
@@ -118,7 +134,11 @@ export const TextInputComponent: FunctionComponent<TextInputComponentProps> = (p
                     defaultValue={data.defaultText}
                     height={data.inputHeight}
                     width={data.inputWidth}
-                    onChange={(e) => onChange(e.target.value)}
+                    value={data.inputValue}
+                    onChange={(e) => onChange((e.target as HTMLTextAreaElement).value)}
+                    onInput={(e) => onInput((e.target as HTMLTextAreaElement).value)}
+                    onBlur={(e) => onBlur((e.target as HTMLTextAreaElement).value)}
+                    onSubmit={(e) => onSubmit((e.target as HTMLTextAreaElement).value)}
                 />}
         </Container>
     );

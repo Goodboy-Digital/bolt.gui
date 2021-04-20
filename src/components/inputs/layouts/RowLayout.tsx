@@ -14,14 +14,14 @@ interface ItemContainerProps
     width: string;
 }
 
-export interface ComponentPair
+export interface ComponentPair<T = any>
 {
     component: FunctionComponent<BaseInputProps>;
-    inputData: any;
+    inputData: T;
 }
 
-interface ItemProps {
-    key: number;
+interface ItemProps
+{
     width: string;
     pair: ComponentPair;
 }
@@ -48,10 +48,10 @@ const ItemContainer = styled.div<ItemContainerProps>`
 `;
 
 const Item: FunctionComponent<ItemProps> = (props: ItemProps) => (
-    <ItemContainer key={props.key} width={props.width}>
+    <ItemContainer width={props.width}>
         <props.pair.component inputData={props.pair.inputData}/>
     </ItemContainer>
-)
+);
 
 export const RowLayout: FunctionComponent<RowLayoutProps> = (props: RowLayoutProps) =>
     (

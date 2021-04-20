@@ -3,6 +3,7 @@ module.exports = {
         amd: true,
         node: true,
         browser: true,
+        es6: true,
     },
     extends: [
         'plugin:react/recommended',
@@ -22,6 +23,7 @@ module.exports = {
         sourceType: 'module',
     },
     rules: {
+        'dot-notation': 0,
         'tsdoc/syntax': 1,
         '@typescript-eslint/semi': 1,
         '@typescript-eslint/brace-style': [1, 'allman', { allowSingleLine: true }],
@@ -47,7 +49,6 @@ module.exports = {
         'consistent-return': 1,
         curly: [1, 'multi-line'],
         'dot-location': [1, 'property'],
-        'dot-notation': 1,
         eqeqeq: 1,
         'no-alert': 1,
         'no-caller': 1,
@@ -112,7 +113,7 @@ module.exports = {
         'array-bracket-spacing': [1, 'never'],
         'block-spacing': [1, 'always'],
         'brace-style': [1, 'allman', { allowSingleLine: true }],
-        camelcase: [1, { properties: 'always' }],
+        camelcase: [1, { properties: 'always', ignoreDestructuring: true }],
         'comma-spacing': [1, { before: false, after: true }],
         'comma-style': [1, 'last'],
         'computed-property-spacing': [1, 'never'],
@@ -182,7 +183,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['*.spec.ts[x]'],
+            files: ['*.spec.ts'],
             rules: {
                 'no-unused-expressions': 'off',
                 'jest/no-disabled-tests': 'warn',
@@ -190,6 +191,9 @@ module.exports = {
                 'jest/no-identical-title': 'error',
                 'jest/prefer-to-have-length': 'warn',
                 'jest/valid-expect': 'off',
+                '@typescript-eslint/ban-ts-comment': 'off',
+                'dot-notation': 'off',
+                'jest/no-commented-out-tests': 'off',
             },
         },
         {

@@ -29,7 +29,6 @@ lib/
 dist/
 coverage/
 temp
-types
 build/
 
 # jetBrains IDE ignores

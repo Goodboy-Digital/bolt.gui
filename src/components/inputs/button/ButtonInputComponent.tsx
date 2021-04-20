@@ -2,26 +2,29 @@ import React, { FunctionComponent } from 'react';
 
 import styled from 'styled-components';
 
+export interface ButtonInputComponentData
+{
+    label?: string;
+    labelColour?: string;
+    labelFontSize?: string;
+
+    imgSrc?: string;
+    imgAlt?: string;
+
+    buttonText?: string;
+    buttonTextColour?: string;
+    buttonFontSize?: string;
+    inputHeight?: string;
+    inputWidth?: string;
+    inputBackgroundColour?: string;
+
+    disabled?: boolean;
+    callOnClick?: (value: any) => any;
+}
+
 export interface ButtonInputComponentProps
 {
-    inputData: {
-        label?: string;
-        labelColour?: string;
-        labelFontSize?: string;
-
-        imgSrc?: string;
-        imgAlt?: string;
-
-        buttonText?: string;
-        buttonTextColour?: string;
-        buttonFontSize?: string;
-        inputHeight?: string;
-        inputWidth?: string;
-        inputBackgroundColour?: string;
-
-        disabled?: boolean;
-        callOnClick?: (value: any) => any;
-    };
+    inputData: ButtonInputComponentData;
 }
 
 interface LabelStyleOptions

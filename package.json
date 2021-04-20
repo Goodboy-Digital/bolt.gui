@@ -1,5 +1,5 @@
 {
-  "name": "bolt.gui",
+  "name": "@goodboydigital/bolt",
   "version": "0.0.0",
   "description": "A highly flexible GUI for managing variables in JavaScript",
   "keywords": [],
@@ -16,29 +16,27 @@
     "Sean Mccumskay <seanmccumskay@goodboydigital.com>"
   ],
   "main": "build/index.js",
-  "module": "build/index.es.js",
-  "types": "build/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.js",
   "files": [
-    "build"
+    "build",
+    "lib"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "clean": "rimraf \"{dist,lib,docs}\"",
+    "prebuild": "npm run clean",
+    "build": "rollup -c && npm run build:tsc",
+    "build:tsc": "tsc -p ./tsconfig.build.json",
+    "clean": "rimraf \"{dist,lib,docs,build,coverage}\"",
+    "index": "ts-node ./tools/generateIndex.ts --transpileOnly",
     "lint": "npm run lint:ts && npm run lint:css",
-    "lint:ts": "eslint --ext .tsx --ext .ts src --ignore-path .gitignore --max-warnings 0",
-    "lint:ts:fix": "npm run lint -- --fix",
     "lint:css": "stylelint src/**/*.ts[x]",
+    "lint:ts": "eslint --ext .tsx --ext .ts src --ignore-path .gitignore --max-warnings 0",
+    "lint:ts:fix": "npm run lint:ts -- --fix",
     "storybook": "start-storybook",
-    "test": "jest --coverage",
+    "test": "cross-env DEBUG_MODE=1 jest --coverage",
+    "test:debug": "jest --coverage",
     "preversion": "npm run clean && npm run lint",
     "postversion": "npm run build"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "testPathIgnorePatterns": [
-      "build/"
-    ]
   },
   "husky": {
     "hooks": {
@@ -46,6 +44,8 @@
     }
   },
   "dependencies": {
+    "@types/react-redux": "^7.1.9",
+    "eventemitter3": "^4.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.1.0"
@@ -54,7 +54,6 @@
     "@babel/core": "^7.10.1",
     "@jest/globals": "^26.1.0",
     "@rollup/plugin-commonjs": "12.0.0",
-    "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-node-resolve": "8.0.0",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-docs": "^5.3.18",
@@ -63,21 +62,28 @@
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/react": "^10.0.4",
     "@types/jest": "^26.0.3",
+    "@types/micromatch": "^4.0.1",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
     "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
     "@typescript-eslint/parser": "^3.5.0",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^7.3.1",
     "eslint-plugin-jest": "^23.17.1",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-tsdoc": "^0.2.5",
     "husky": "^4.2.5",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
+    "jest-electron": "^0.1.11",
+    "micromatch": "^4.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
+    "react-redux": "5.0.7",
     "rimraf": "3.0.2",
     "rollup": "^2.11.2",
+    "rollup-plugin-image-files": "^1.4.2",
     "rollup-plugin-typescript2": "^0.27.0",
     "stylelint": "^13.6.1",
     "stylelint-config-recommended": "^3.0.0",
@@ -85,6 +91,7 @@
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.3",
+    "ts-node": "^8.10.2",
     "typescript": "^3.8.3"
   }
 }
