@@ -12,6 +12,7 @@ import store from '../redux/store';
 import {
     addPanel,
     clearPanel,
+    removePanel,
     setActivePanel,
     addWindow,
     addComponent,
@@ -19,7 +20,8 @@ import {
     updateComponent,
 } from '../redux';
 import { defaultAttributes } from '../components/Themeable';
-import { ButtonInputComponent, Label } from '..';
+import { ButtonInputComponent, Label, RangeInputComponent } from '..';
+import { CollapsibleFolderComponent, ColumnLayout, TextInputComponent } from '../components';
 
 export class BoltClass
 {
@@ -86,21 +88,14 @@ export class BoltClass
         store.dispatch(setActivePanel(id));
     }
 
-    // TODO: implement an addPanel() to allow for a panel to be added back after being removed
-
     /**
      * Removes a panel from a window
      * @param panel - panel to remove
      */
-    // public removePanel(panel: PanelController): void
-    // {
-    //     if (!this._panels.includes(panel))
-    //     {
-    //         throw new Error('[Bolt] Cannot remove panel that doesn\'t exist');
-    //     }
-
-    //     panel._remove();
-    // }
+    public removePanel(id: string, parentId: string): void
+    {
+        store.dispatch(removePanel(id, parentId));
+    }
 
     /**
      * Removes all panels from there windows
@@ -170,19 +165,32 @@ export class BoltClass
      * Creates a new component
      * @param options - options for the window
      */
-    public createComponent(type: string, id: string, panelId: string, inputData: any): any
+    public createComponent(type: string, id: string, parentId: string, inputData: any): any
     {
         switch (type)
         {
             case 'label': {
-                store.dispatch(addComponent({ id, component: Label, inputData }, panelId));
+                store.dispatch(addComponent({ id, component: Label, inputData }, parentId));
                 break;
             }
             case 'button': {
-                store.dispatch(addComponent({ id, component: ButtonInputComponent, inputData }, panelId));
+                store.dispatch(addComponent({ id, component: ButtonInputComponent, inputData }, parentId));
                 break;
             }
-            case 'xyr': {
+            case 'range': {
+                store.dispatch(addComponent({ id, component: RangeInputComponent as any, inputData }, parentId));
+                break;
+            }
+            case 'text': {
+                store.dispatch(addComponent({ id, component: TextInputComponent, inputData }, parentId));
+                break;
+            }
+            case 'columnLayout': {
+                store.dispatch(addComponent({ id, component: ColumnLayout, inputData }, parentId));
+                break;
+            }
+            case 'collapsibleFolder': {
+                store.dispatch(addComponent({ id, component: CollapsibleFolderComponent, inputData }, parentId));
                 break;
             }
             case 'custom': {

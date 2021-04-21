@@ -60,7 +60,7 @@ export function addComponentReducer(store: ReduxStore, action: AddComponentActio
         };
     }
 
-    console.error(`Could not add ${component.id} - parent not found`);
+    console.error(`Could not add ${component.id} - parent ${parentID} not found`);
 
     return store;
 }

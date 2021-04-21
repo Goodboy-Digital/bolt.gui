@@ -11,8 +11,6 @@ import { storiesOf } from '@storybook/react';
 
 const store = createStore(rootReducer);
 
-// TODO: this is broken, figure out why
-
 store.dispatch(addWindow({
     id: 'window1',
     expanded: true,
