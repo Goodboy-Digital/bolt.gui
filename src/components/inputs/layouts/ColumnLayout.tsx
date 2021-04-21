@@ -1,15 +1,24 @@
-import React, { FunctionComponent, ReactNode } from 'react';
-
+import React, { FunctionComponent } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
+import { ApplicationStore } from '../../../types';
+import { getComponentsByIds } from '../../../redux';
 
-export interface ColumnLayoutProps
+const mapStateToProps = (store: ApplicationStore) => ({ store });
+const mapDispatch = { getComponentsByIds };
+const connector = connect(mapStateToProps, mapDispatch);
+
+type ColumnLayoutReduxProps = ConnectedProps<typeof connector>;
+export interface ColumnLayoutProps extends ColumnLayoutReduxProps
 {
-    children: ReactNode;
-    label?: string;
-    labelColour?: string;
-    labelFontSize?: string;
-    leftColumnWidth?: string;
-    rightColumnWidth?: string;
+    inputData: {
+        label?: string;
+        labelColour?: string;
+        labelFontSize?: string;
+        leftColumnWidth?: string;
+        rightColumnWidth?: string;
+        childIDs: string[];
+    };
 }
 
 interface LabelProps
@@ -42,30 +51,37 @@ const LabelText = styled.p<LabelProps>`
     font-size: ${(props: LabelProps): string => (props.labelFontSize ? props.labelFontSize : '11px')};
 `;
 
-export const ColumnLayout: FunctionComponent<ColumnLayoutProps> = (props: ColumnLayoutProps) =>
+const UnconnectedColumnLayout: FunctionComponent<ColumnLayoutProps> = (props: ColumnLayoutProps) =>
 {
-    const leftColWidth = props.leftColumnWidth ? props.leftColumnWidth : '30%';
-    let rightColWidth = props.label ? '70%' : '100%';
+    const { getComponentsByIds, store } = props;
+    const { childIDs, leftColumnWidth, rightColumnWidth, label } = props.inputData;
+    const childComponents = getComponentsByIds(store, childIDs).payload || [];
+    const leftColWidth = leftColumnWidth ? leftColumnWidth : '30%';
+    let rightColWidth = label ? '70%' : '100%';
 
-    if (props.rightColumnWidth)
+    if (rightColumnWidth)
     {
-        rightColWidth = props.rightColumnWidth;
+        rightColWidth = rightColumnWidth;
     }
 
     return (
         <Container>
             {
-                props.label
+                label
                 && <Column width={leftColWidth}>
-                    <LabelText>{props.label}</LabelText>
+                    <LabelText>{label}</LabelText>
                 </Column>
             }
             <Column width={rightColWidth}>
                 {
-                    props.children
+                    childComponents.map((pair) =>
+                        (
+                            <pair.component key={pair.id} inputData={pair.inputData}/>
+                        ))
                 }
             </Column>
         </Container>
     );
 };
 
+export const ColumnLayout = connector(UnconnectedColumnLayout);
