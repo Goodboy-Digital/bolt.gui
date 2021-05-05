@@ -22,6 +22,7 @@ import {
 import { defaultAttributes } from '../components/Themeable';
 import { ButtonInputComponent, Label, RangeInputComponent } from '..';
 import { CollapsibleFolderComponent, ColumnLayout, TextInputComponent } from '../components';
+import { GridSelectorComponent } from '../components/inputs/gridselector';
 
 export class BoltClass
 {
@@ -179,6 +180,10 @@ export class BoltClass
             }
             case 'range': {
                 store.dispatch(addComponent({ id, component: RangeInputComponent as any, inputData }, parentId));
+                break;
+            }
+            case 'gridSelector': {
+                store.dispatch(addComponent({ id, component: GridSelectorComponent, inputData }, parentId));
                 break;
             }
             case 'text': {

@@ -102,6 +102,7 @@ const UnconnectedCollapsibleFolderComponent: FunctionComponent<CollapsibleFolder
                      updateComponent({
                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                          // @ts-ignore - type mismatch
+                         // eslint-disable-next-line no-use-before-define
                          component: CollapsibleFolderComponent,
                          id,
                          inputData: {
