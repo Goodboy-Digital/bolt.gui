@@ -104,7 +104,7 @@ const UnconnectedGridSelectorComponent: FunctionComponent<GridSelectorComponentP
      const { id, label, imageURLs, expanded, backgroundColour, headerColour, search, selection, onSelect } = props.inputData;
 
      const filter = search || '';
-     const filteredUrls = imageURLs.filter((url: string) => url.includes(filter));
+     const filteredUrls = imageURLs.filter((url: string) => url.toLowerCase().includes(filter.toLowerCase()));
 
      return (
          <Container>
